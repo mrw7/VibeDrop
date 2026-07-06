@@ -1,0 +1,37 @@
+# VibeDrop local development stack
+# Usage:
+#   docker compose up --build
+#
+# Services:
+#   app    — Next.js dev server with hot reload (port 3000)
+#   worker — build worker (polls DB for pending builds)
+#
+# Database: connects to Alibaba Cloud Supabase via DATABASE_URL in .env.local.
+# No local postgres — all cloud resources.
+
+services:
+  app:
+    build:
+      context: .
+      target: deps
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: sh -c "chmod +x node_modules/.bin/* 2>/dev/null; npx prisma generate && npm run dev"
+
+  worker:
+    build:
+      context: .
+      target: deps
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npx prisma generate && npm run build-worker"
+    restart: unless-stopped

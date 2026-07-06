@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env.local
+.env.production
+*.md
+.vercel
+cli
+.claude
+.scratch
+tests
+coverage
+playwright-report
+test-results

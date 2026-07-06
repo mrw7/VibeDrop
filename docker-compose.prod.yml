@@ -1,0 +1,79 @@
+# VibeDrop production stack (Alibaba Cloud ECS)
+#
+# Usage:
+#   cp .env.production.example .env.production   # then fill real values
+#   docker compose -f docker-compose.prod.yml up -d --build
+#   DOMAIN=your.domain EMAIL=you@example.com ./nginx/init-letsencrypt.sh
+#
+# Services:
+#   app     — Next.js standalone server (port 3000, internal)
+#   worker  — build worker (build-farm image)
+#   nginx   — reverse proxy + TLS termination (80/443)
+#   certbot — Let's Encrypt certificate renewal
+#
+# NOTE: No local PostgreSQL — connects to Alibaba Cloud Supabase via DATABASE_URL.
+
+services:
+  app:
+    build:
+      context: .
+      target: app-runner
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    expose:
+      - "3000"
+    # App connects to cloud DB via DATABASE_URL in .env.production
+    networks:
+      - vibedrop-net
+
+  worker:
+    build:
+      context: .
+      target: worker-runner
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    # Worker needs to build user projects (git clone, npm install, etc.)
+    # Mount a persistent build cache to speed up repeated builds
+    volumes:
+      - worker-cache:/root/.npm
+    networks:
+      - vibedrop-net
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
+      - certbot-www:/var/www/certbot:ro
+      - certbot-certs:/etc/letsencrypt:ro
+    environment:
+      - DOMAIN=${DOMAIN:?Set DOMAIN in .env.production}
+    depends_on:
+      - app
+    networks:
+      - vibedrop-net
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - certbot-www:/var/www/certbot
+      - certbot-certs:/etc/letsencrypt
+    # Renew certs and reload nginx hourly
+    entrypoint: sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h; done"
+    networks:
+      - vibedrop-net
+
+volumes:
+  worker-cache:
+  certbot-www:
+  certbot-certs:
+
+networks:
+  vibedrop-net:
+    driver: bridge

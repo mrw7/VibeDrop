@@ -1,0 +1,62 @@
+# VibeDrop Native Cloud Emulator Infrastructure
+# Requires: Docker with KVM support (Linux host)
+#
+# Usage:
+#   docker compose -f docker-compose.emulator.yml up -d
+#
+# This stack is managed programmatically by the emulator pool manager
+# (src/lib/emulator/). The compose file serves as documentation and
+# manual testing reference. In production, containers are created
+# dynamically via the Docker API (dockerode).
+
+version: "3.9"
+
+services:
+  # Android Emulator (redroid)
+  # In production, each session gets its own redroid container
+  # created dynamically by src/lib/emulator/docker.ts
+  redroid:
+    image: redroid/redroid:11.0.0-latest
+    container_name: redroid-emulator
+    privileged: true
+    ports:
+      - "5555:5555"  # ADB
+      - "6080:6080"  # noVNC
+    environment:
+      - androidboot.redroid_width=1080
+      - androidboot.redroid_height=1920
+      - androidboot.redroid_dpi=420
+      - androidboot.redroid_gpu_mode=auto
+    volumes:
+      - redroid-data:/data
+    restart: unless-stopped
+
+  # Screen mirroring via scrcpy
+  scrcpy:
+    image: pierrecarayon/scrcpy-web:latest
+    container_name: scrcpy-stream
+    ports:
+      - "8000:8000"
+    environment:
+      - SCRCPY_ADB_HOST=redroid
+      - SCRCPY_ADB_PORT=5555
+    depends_on:
+      - redroid
+    restart: unless-stopped
+
+  # Browser-accessible VNC via noVNC
+  novnc:
+    image: theasp/novnc:latest
+    container_name: novnc-proxy
+    ports:
+      - "8080:8080"
+    environment:
+      - VNC_SCREEN_SIZE=1080x1920
+      - RUN_XTERM=no
+      - DISPLAY=:0
+    depends_on:
+      - scrcpy
+    restart: unless-stopped
+
+volumes:
+  redroid-data:

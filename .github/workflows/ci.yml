@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-typecheck:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: TypeScript Check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+  test:
+    name: Tests (Vitest)
+    runs-on: ubuntu-latest
+    needs: lint-typecheck
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: vibedrop
+          POSTGRES_PASSWORD: vibedrop_test
+          POSTGRES_DB: vibedrop_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Run migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: postgresql://vibedrop:vibedrop_test@localhost:5432/vibedrop_test
+
+      - name: Run tests
+        run: npm test
+        env:
+          DATABASE_URL: postgresql://vibedrop:vibedrop_test@localhost:5432/vibedrop_test
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: test-secret-for-ci-only
+          GITHUB_CLIENT_ID: test
+          GITHUB_CLIENT_SECRET: test
+          OSS_REGION: test
+          OSS_BUCKET: test
+          OSS_ACCESS_KEY_ID: test
+          OSS_ACCESS_KEY_SECRET: test
+          ENCRYPTION_KEY: test-encryption-key-32bytes!!
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: postgresql://localhost:5432/dummy
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: dummy-secret-for-build
+          GITHUB_CLIENT_ID: dummy
+          GITHUB_CLIENT_SECRET: dummy
+          OSS_REGION: test
+          OSS_BUCKET: test
+          OSS_ACCESS_KEY_ID: test
+          OSS_ACCESS_KEY_SECRET: test
+          ENCRYPTION_KEY: dummy-encryption-key-32b!!

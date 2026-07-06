@@ -1,0 +1,226 @@
+// VibeDrop - Prisma Schema
+// Database: PostgreSQL (Alibaba Cloud Supabase)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(uuid())
+  githubId          String?   @unique
+  githubLogin       String?
+  name              String?
+  avatarUrl         String?
+  email             String?   @unique
+  emailVerified     DateTime?
+  githubAccessToken String?   // Encrypted at application level
+  passwordHash      String?   // bcrypt hash for email/password users
+  resetToken        String?   // Password reset token (hashed)
+  resetTokenExpiry  DateTime? // Password reset token expiry
+  createdAt         DateTime  @default(now())
+
+  apps          App[]
+  likes         Like[]
+  comments      Comment[]
+  reports       Report[]
+  collaborations Collaborator[]
+  tipsSent      Tip[]          @relation("TipTipper")
+  tipsReceived  Tip[]          @relation("TipRecipient")
+  emulatorSessions EmulatorSession[]
+
+  @@index([email])
+}
+
+model App {
+  id            String     @id @default(uuid())
+  title         String
+  description   String?
+  coverImage    String?
+  authorId      String
+  sourceType    SourceType
+  sourceUrl     String?
+  buildStatus   BuildStatus @default(pending)
+  buildId       String?
+  playUrl       String?
+  aiToolTag     String?
+  techStackTag  String?
+  deviceType    DeviceType @default(web)
+  likesCount    Int        @default(0)
+  commentsCount Int        @default(0)
+  forksCount    Int        @default(0)
+  tipsCount     Int        @default(0)
+  tipsTotal     Int        @default(0) // Total tips in cents
+  forkedFromId  String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  author        User          @relation(fields: [authorId], references: [id])
+  builds        Build[]
+  likes         Like[]
+  comments      Comment[]
+  reports       Report[]
+  collaborators   Collaborator[]
+  tips            Tip[]
+  emulatorSessions EmulatorSession[]
+  forkedFrom    App?          @relation("ForkRelation", fields: [forkedFromId], references: [id])
+  forks         App[]         @relation("ForkRelation")
+
+  @@index([authorId])
+  @@index([buildStatus])
+  @@index([aiToolTag])
+  @@index([techStackTag])
+  @@index([createdAt])
+  @@index([forkedFromId])
+}
+
+model Build {
+  id          String      @id @default(uuid())
+  appId       String
+  status      BuildStatus @default(pending)
+  sourceType  SourceType
+  sourceUrl   String?
+  buildLog    String?
+  artifactUrl String?
+  startedAt   DateTime    @default(now())
+  completedAt DateTime?
+  
+  app App @relation(fields: [appId], references: [id])
+
+  @@index([appId])
+  @@index([startedAt])
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  appId     String
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id])
+  app  App  @relation(fields: [appId], references: [id])
+
+  @@unique([userId, appId])
+  @@index([appId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  userId    String
+  appId     String
+  content   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  app  App  @relation(fields: [appId], references: [id])
+
+  @@index([appId])
+  @@index([userId])
+}
+
+model Report {
+  id         String   @id @default(uuid())
+  appId      String
+  reporterId String
+  reason     String
+  resolved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  app      App  @relation(fields: [appId], references: [id])
+  reporter User @relation(fields: [reporterId], references: [id])
+
+  @@index([appId])
+  @@index([resolved])
+}
+
+model Collaborator {
+  id        String           @id @default(uuid())
+  appId     String
+  userId    String
+  role      CollaboratorRole @default(editor)
+  createdAt DateTime         @default(now())
+
+  app  App  @relation(fields: [appId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([appId, userId])
+  @@index([appId])
+  @@index([userId])
+}
+
+model Tip {
+  id              String   @id @default(uuid())
+  tipperId        String
+  appId           String
+  recipientId     String
+  amount          Int
+  currency        String   @default("cny")
+  message         String?
+  stripeSessionId String   @unique
+  createdAt       DateTime @default(now())
+
+  tipper    User @relation("TipTipper", fields: [tipperId], references: [id])
+  recipient User @relation("TipRecipient", fields: [recipientId], references: [id])
+  app       App  @relation(fields: [appId], references: [id])
+
+  @@index([appId])
+  @@index([recipientId])
+  @@index([tipperId])
+}
+
+model EmulatorSession {
+  id          String          @id @default(uuid())
+  appId       String
+  userId      String
+  containerId String?
+  status      EmulatorStatus  @default(starting)
+  streamUrl   String?
+  adbPort     Int?
+  error       String?
+  startedAt   DateTime        @default(now())
+  endedAt     DateTime?
+
+  app  App  @relation(fields: [appId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([appId])
+  @@index([status])
+}
+
+enum SourceType {
+  zip
+  github
+}
+
+enum BuildStatus {
+  pending
+  building
+  success
+  failed
+}
+
+enum DeviceType {
+  web
+  ios
+  android
+  harmony
+}
+
+enum CollaboratorRole {
+  owner
+  editor
+}
+
+enum EmulatorStatus {
+  starting
+  running
+  installing
+  ready
+  stopping
+  stopped
+  error
+}
