@@ -20,13 +20,13 @@ export default async function Header() {
         跳转到主内容
       </a>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Logo href="/" size="lg" />
+        <Logo href="/" size="lg" wordmarkClassName="text-white" />
 
         {/* Desktop Navigation */}
         <nav className="hidden sm:flex items-center gap-3">
           <Link
             href="/apps"
-            className="font-pixel text-[0.65rem] text-foreground hover:neon-text-cyan transition-colors px-3 py-2"
+            className="font-pixel text-[0.65rem] text-white hover:text-[var(--color-neon-cyan)] transition-colors px-3 py-2"
           >
             DISCOVER
           </Link>

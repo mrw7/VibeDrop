@@ -6,6 +6,7 @@ interface LogoProps {
   className?: string
   size?: "sm" | "md" | "lg"
   showWordmark?: boolean
+  wordmarkClassName?: string
 }
 
 const SIZE_MAP = {
@@ -22,6 +23,7 @@ export default function Logo({
   className,
   size = "md",
   showWordmark = true,
+  wordmarkClassName,
 }: LogoProps) {
   const s = SIZE_MAP[size]
   const content = (
@@ -51,7 +53,7 @@ export default function Logo({
         </svg>
       </span>
       {showWordmark && (
-        <span className={cn(s.text, "font-pixel text-foreground")}>
+        <span className={cn(s.text, "font-pixel text-foreground", wordmarkClassName)}>
           VibeDrop
         </span>
       )}
