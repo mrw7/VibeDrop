@@ -108,8 +108,8 @@ export default async function AppsPage({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search and Filters */}
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
-            社区作品
+          <h1 className="font-pixel text-2xl sm:text-3xl neon-text-pink mb-2">
+            COMMUNITY APPS
           </h1>
           <p className="text-muted-foreground mb-6">发现来自社区的 Vibe Coding 杰作</p>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -180,14 +180,14 @@ export default async function AppsPage({
 
         {sortedApps.length === 0 && (
           <div className="text-center py-20 animate-fade-in">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-brand-gradient flex items-center justify-center text-white shadow-soft">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-none border-2 border-[var(--color-neon-cyan)] flex items-center justify-center text-[var(--color-neon-cyan)] neon-glow-cyan">
               <Package className="w-8 h-8" />
             </div>
-            <p className="text-muted-foreground text-lg mb-4">
-              {q ? `未找到 "${q}" 相关作品` : "暂无作品，快来发布第一个吧！"}
+            <p className="text-muted-foreground text-lg mb-4 font-pixel text-sm">
+              {q ? `NO RESULTS FOR "${q}"` : "暂无作品,快来发布第一个!"}
             </p>
-            <Button asChild variant="gradient" className="btn-press">
-              <Link href="/publish">立即发布</Link>
+            <Button asChild variant="neon" className="btn-press font-pixel">
+              <Link href="/publish">发布作品</Link>
             </Button>
           </div>
         )}

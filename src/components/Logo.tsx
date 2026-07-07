@@ -4,20 +4,18 @@ import { cn } from "@/lib/utils"
 interface LogoProps {
   href?: string
   className?: string
-  /** 字标大小:text-lg(默认) / text-xl / text-2xl */
   size?: "sm" | "md" | "lg"
   showWordmark?: boolean
 }
 
 const SIZE_MAP = {
-  sm: { box: "w-7 h-7", text: "text-base", radius: "rounded-md", glyph: 14 },
-  md: { box: "w-8 h-8", text: "text-lg", radius: "rounded-lg", glyph: 16 },
-  lg: { box: "w-10 h-10", text: "text-2xl", radius: "rounded-xl", glyph: 20 },
+  sm: { box: "w-6 h-6", text: "text-[0.6rem]", radius: "rounded-none", glyph: 12 },
+  md: { box: "w-8 h-8", text: "text-sm", radius: "rounded-none", glyph: 16 },
+  lg: { box: "w-10 h-10", text: "text-lg", radius: "rounded-none", glyph: 20 },
 }
 
 /**
- * VibeDrop brand logo: 紫蓝渐变方块图标 + 字标。
- * 全站复用(Header / Footer / Auth 页)。
+ * VibeDrop 像素风 Logo:霓虹方块图标 + 像素字体的字标。
  */
 export default function Logo({
   href = "/",
@@ -28,13 +26,14 @@ export default function Logo({
   const s = SIZE_MAP[size]
   const content = (
     <span className={cn("flex items-center gap-2", className)}>
-      {/* 渐变图标方块 */}
       <span
         className={cn(
           s.box,
           s.radius,
-          "bg-brand-gradient flex items-center justify-center shadow-soft shrink-0"
+          "bg-[var(--color-accent)] flex items-center justify-center shrink-0",
+          "border-2 border-[var(--color-accent)]",
         )}
+        style={{ boxShadow: "0 0 10px oklch(0.70 0.32 350 / 0.6)" }}
         aria-hidden="true"
       >
         <svg
@@ -43,16 +42,17 @@ export default function Logo({
           viewBox="0 0 24 24"
           fill="none"
           stroke="white"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          strokeWidth={3}
+          strokeLinecap="square"
+          strokeLinejoin="miter"
+          shapeRendering="crispEdges"
         >
-          {/* 水滴形态 — 呼应 "Drop" */}
-          <path d="M12 2.5c3.5 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 2.5-6.5 6-10.5z" />
+          {/* 像素化水滴 */}
+          <path d="M12 3l6 8a6 6 0 0 1-12 0z" />
         </svg>
       </span>
       {showWordmark && (
-        <span className={cn(s.text, "font-bold tracking-tight text-foreground")}>
+        <span className={cn(s.text, "font-pixel neon-text-pink")}>
           VibeDrop
         </span>
       )}

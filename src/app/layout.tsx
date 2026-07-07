@@ -20,7 +20,8 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  // Cyberpunk 像素风默认深色:仅当用户明确存了 'light' 才用浅色
+                  if (theme !== 'light') {
                     document.documentElement.classList.add('dark');
                   }
                 } catch(e) {}

@@ -33,7 +33,7 @@ export default async function Header() {
 
           {session?.user ? (
             <div className="flex items-center gap-2 ml-2">
-              <Button asChild variant="gradient" size="sm" className="hidden md:inline-flex">
+              <Button asChild variant="neon" size="sm" className="hidden md:inline-flex btn-press">
                 <Link href="/publish">发布作品</Link>
               </Button>
               <UserMenu
@@ -46,7 +46,7 @@ export default async function Header() {
               />
             </div>
           ) : (
-            <Button asChild variant="gradient" size="sm" className="ml-2">
+            <Button asChild variant="neon" size="sm" className="ml-2 btn-press">
               <Link href="/auth/signin">登录</Link>
             </Button>
           )}

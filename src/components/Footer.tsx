@@ -59,12 +59,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} VibeDrop. All rights reserved.
+        <div className="mt-10 pt-6 border-t-2 border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground font-pixel">
+            © {new Date().getFullYear()} VIBEDROP
           </p>
-          <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-            Made with <span className="text-gradient font-semibold">Vibe Coding</span>
+          <p className="text-xs flex items-center gap-1.5 font-pixel">
+            <span className="text-muted-foreground">MADE WITH</span>
+            <span className="neon-text-pink">VIBE CODING</span>
           </p>
         </div>
       </div>
