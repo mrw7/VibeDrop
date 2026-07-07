@@ -72,7 +72,11 @@ export function middleware(request: NextRequest) {
     isAuthPath(path)
   ) {
     const ip = getClientIP(request)
-    const maxRequests = isAuthPath(path) ? AUTH_RATE_LIMIT_MAX : RATE_LIMIT_MAX
+    // 仅对写操作(POST/PUT/DELETE,即凭据提交)施加严格 auth 限流;
+    // GET(查看页面 + Next.js Link prefetch)用宽松阈值,避免误伤。
+    const isWrite = request.method !== "GET" && request.method !== "HEAD"
+    const maxRequests =
+      isAuthPath(path) && isWrite ? AUTH_RATE_LIMIT_MAX : RATE_LIMIT_MAX
 
     if (isRateLimited(ip, maxRequests)) {
       return new NextResponse(
