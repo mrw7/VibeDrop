@@ -20,21 +20,21 @@ export default async function Header() {
         跳转到主内容
       </a>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Logo href="/" size="md" />
+        <Logo href="/" size="lg" />
 
         {/* Desktop Navigation */}
-        <nav className="hidden sm:flex items-center gap-1">
+        <nav className="hidden sm:flex items-center gap-3">
           <Link
             href="/apps"
-            className="px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            className="font-pixel text-[0.65rem] neon-text-cyan hover:neon-text-pink transition-colors px-3 py-2"
           >
-            发现
+            DISCOVER
           </Link>
 
           {session?.user ? (
-            <div className="flex items-center gap-2 ml-2">
-              <Button asChild variant="neon" size="sm" className="hidden md:inline-flex btn-press">
-                <Link href="/publish">发布作品</Link>
+            <div className="flex items-center gap-3 ml-2">
+              <Button asChild variant="neon" size="default" className="md:inline-flex btn-press font-pixel">
+                <Link href="/publish">PUBLISH</Link>
               </Button>
               <UserMenu
                 user={{
@@ -46,12 +46,12 @@ export default async function Header() {
               />
             </div>
           ) : (
-            <Button asChild variant="neon" size="sm" className="ml-2 btn-press">
-              <Link href="/auth/signin">登录</Link>
+            <Button asChild variant="neon" size="default" className="btn-press font-pixel">
+              <Link href="/auth/signin">LOGIN</Link>
             </Button>
           )}
 
-          <div className="ml-2 pl-2 border-l border-border">
+          <div className="ml-2 pl-2 border-l-2 border-border">
             <ThemeToggle />
           </div>
         </nav>
