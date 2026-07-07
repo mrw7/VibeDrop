@@ -31,9 +31,8 @@ export default function Logo({
           s.box,
           s.radius,
           "bg-[var(--color-accent)] flex items-center justify-center shrink-0",
-          "border-2 border-[var(--color-accent)]",
+          "border-2 border-[var(--color-accent)] neon-glow",
         )}
-        style={{ boxShadow: "0 0 10px oklch(0.70 0.32 350 / 0.6)" }}
         aria-hidden="true"
       >
         <svg

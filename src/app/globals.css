@@ -30,9 +30,9 @@
   --color-card-foreground: oklch(0.16 0.02 285);
 
   /* 霓虹强调色(两种模式共用) */
-  --color-accent: oklch(0.65 0.30 350);              /* 霓虹粉 */
+  --color-accent: oklch(0.58 0.26 290);              /* 电光紫 */
   --color-accent-foreground: oklch(0.985 0 0);
-  --color-neon-cyan: oklch(0.78 0.16 195);           /* 霓虹青 */
+  --color-neon-cyan: oklch(0.68 0.20 255);           /* 电光蓝 */
   --color-neon-yellow: oklch(0.85 0.20 95);          /* 霓虹黄 */
 
   /* 语义色 */
@@ -44,33 +44,33 @@
   --color-destructive-foreground: oklch(0.985 0 0);
   --color-info: oklch(0.62 0.21 260);
   --color-info-foreground: oklch(0.985 0 0);
-  --color-ring: oklch(0.65 0.30 350);
+  --color-ring: oklch(0.58 0.26 290);
   --radius: 0.125rem;
 
   /* 签名霓虹渐变(粉→青) */
-  --gradient-neon: linear-gradient(90deg, oklch(0.70 0.32 350), oklch(0.85 0.18 195));
+  --gradient-neon: linear-gradient(90deg, oklch(0.62 0.28 290), oklch(0.72 0.22 255));
 }
 
 /* ── 赛博朋克深色(默认:.dark class,由 layout 初始化脚本默认添加) ── */
 .dark {
-  --color-background: oklch(0.135 0.022 285);       /* 近黑深紫 */
+  --color-background: oklch(0.125 0.035 270);       /* 深蓝黑 */
   --color-foreground: oklch(0.96 0.01 290);          /* 冷白 */
   --color-primary: oklch(0.96 0.01 290);
-  --color-primary-foreground: oklch(0.135 0.022 285);
-  --color-secondary: oklch(0.20 0.028 285);
+  --color-primary-foreground: oklch(0.125 0.035 270);
+  --color-secondary: oklch(0.19 0.040 270);
   --color-secondary-foreground: oklch(0.96 0.01 290);
-  --color-muted: oklch(0.18 0.025 285);
+  --color-muted: oklch(0.17 0.038 270);
   --color-muted-foreground: oklch(0.68 0.03 290);
   --color-border: oklch(0.30 0.04 290);
-  --color-card: oklch(0.165 0.025 285);
+  --color-card: oklch(0.155 0.038 270);
   --color-card-foreground: oklch(0.96 0.01 290);
 
   /* 深底下霓虹更亮更饱和 */
-  --color-accent: oklch(0.70 0.32 350);
-  --color-neon-cyan: oklch(0.85 0.18 195);
+  --color-accent: oklch(0.62 0.28 290);
+  --color-neon-cyan: oklch(0.72 0.22 255);
   --color-neon-yellow: oklch(0.92 0.20 95);
   --color-success: oklch(0.75 0.20 150);
-  --color-success-foreground: oklch(0.135 0.022 285);
+  --color-success-foreground: oklch(0.125 0.035 270);
   --color-destructive: oklch(0.65 0.28 25);
   --color-info: oklch(0.78 0.16 220);
 }
@@ -107,25 +107,25 @@ body {
 .pixel-border-cyan { border: 2px solid var(--color-neon-cyan); }
 
 /* ── 块状阴影(offset 无 blur,8-bit 按钮) ── */
-.pixel-shadow { box-shadow: 4px 4px 0 oklch(0.70 0.32 350); }
-.pixel-shadow-cyan { box-shadow: 4px 4px 0 oklch(0.85 0.18 195); }
-.pixel-shadow-sm { box-shadow: 3px 3px 0 oklch(0.70 0.32 350); }
+.pixel-shadow { box-shadow: 4px 4px 0 oklch(0.62 0.28 290); }
+.pixel-shadow-cyan { box-shadow: 4px 4px 0 oklch(0.72 0.22 255); }
+.pixel-shadow-sm { box-shadow: 3px 3px 0 oklch(0.62 0.28 290); }
 
 /* ── 霓虹发光 ── */
 .neon-text-pink {
   color: var(--color-accent);
-  text-shadow: 0 0 4px oklch(0.70 0.32 350), 0 0 12px oklch(0.70 0.32 350 / 0.6);
+  text-shadow: 0 0 4px oklch(0.62 0.28 290), 0 0 12px oklch(0.62 0.28 290 / 0.6);
 }
 .neon-text-cyan {
   color: var(--color-neon-cyan);
-  text-shadow: 0 0 4px oklch(0.85 0.18 195), 0 0 12px oklch(0.85 0.18 195 / 0.6);
+  text-shadow: 0 0 4px oklch(0.72 0.22 255), 0 0 12px oklch(0.72 0.22 255 / 0.6);
 }
 .neon-text-yellow {
   color: var(--color-neon-yellow);
   text-shadow: 0 0 4px oklch(0.92 0.20 95 / 0.6);
 }
-.neon-glow { box-shadow: 0 0 0 1px oklch(0.70 0.32 350), 0 0 16px oklch(0.70 0.32 350 / 0.45); }
-.neon-glow-cyan { box-shadow: 0 0 0 1px oklch(0.85 0.18 195), 0 0 16px oklch(0.85 0.18 195 / 0.45); }
+.neon-glow { box-shadow: 0 0 0 1px oklch(0.62 0.28 290), 0 0 16px oklch(0.62 0.28 290 / 0.45); }
+.neon-glow-cyan { box-shadow: 0 0 0 1px oklch(0.72 0.22 255), 0 0 16px oklch(0.72 0.22 255 / 0.45); }
 
 /* 霓虹渐变文字 */
 .neon-gradient-text {
@@ -152,15 +152,15 @@ body {
 /* ── 像素网格底 ── */
 .bg-pixel-grid {
   background-image:
-    linear-gradient(oklch(0.85 0.18 195 / 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(0.70 0.32 350 / 0.06) 1px, transparent 1px);
+    linear-gradient(oklch(0.72 0.22 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.62 0.28 290 / 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 /* 霓虹柔光 */
 .glow-neon-radial {
   background: radial-gradient(circle at center,
-    oklch(0.70 0.32 350 / 0.20) 0%, transparent 70%);
+    oklch(0.62 0.28 290 / 0.20) 0%, transparent 70%);
 }
 
 /* 像素化渲染(图标/图片) */
@@ -215,8 +215,8 @@ body {
 }
 .card-hover:hover {
   transform: translate(-2px, -2px);
-  border-color: oklch(0.70 0.32 350);
-  box-shadow: 6px 6px 0 oklch(0.70 0.32 350 / 0.5);
+  border-color: oklch(0.62 0.28 290);
+  box-shadow: 6px 6px 0 oklch(0.62 0.28 290 / 0.5);
 }
 
 /* Button press(模拟 8-bit 按压) */
@@ -227,7 +227,7 @@ body {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px oklch(0.70 0.32 350 / 0.4), 0 0 12px oklch(0.70 0.32 350 / 0.3);
+  box-shadow: 0 0 0 2px oklch(0.62 0.28 290 / 0.4), 0 0 12px oklch(0.62 0.28 290 / 0.3);
 }
 
 /* Scrollbar */
