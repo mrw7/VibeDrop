@@ -199,10 +199,10 @@ body {
 
 /* ── 玻璃态(深色增强) ── */
 .glass {
-  background: rgba(20, 18, 35, 0.7);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border-bottom: 2px solid var(--color-border);
+  background: rgba(12, 10, 26, 0.88);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 2px solid oklch(0.62 0.28 290 / 0.5);
 }
 .light .glass {
   background: rgba(255, 255, 255, 0.75);

@@ -26,14 +26,14 @@ export default async function Header() {
         <nav className="hidden sm:flex items-center gap-3">
           <Link
             href="/apps"
-            className="font-pixel text-[0.65rem] neon-text-cyan hover:neon-text-pink transition-colors px-3 py-2"
+            className="font-pixel text-[0.65rem] text-foreground hover:neon-text-cyan transition-colors px-3 py-2"
           >
             DISCOVER
           </Link>
 
           {session?.user ? (
             <div className="flex items-center gap-3 ml-2">
-              <Button asChild variant="neon" size="default" className="md:inline-flex btn-press font-pixel">
+              <Button asChild variant="accent" size="default" className="md:inline-flex btn-press font-pixel neon-glow">
                 <Link href="/publish">PUBLISH</Link>
               </Button>
               <UserMenu
@@ -46,7 +46,7 @@ export default async function Header() {
               />
             </div>
           ) : (
-            <Button asChild variant="neon" size="default" className="btn-press font-pixel">
+            <Button asChild variant="accent" size="default" className="btn-press font-pixel neon-glow">
               <Link href="/auth/signin">LOGIN</Link>
             </Button>
           )}

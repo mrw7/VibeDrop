@@ -51,7 +51,7 @@ export default function Logo({
         </svg>
       </span>
       {showWordmark && (
-        <span className={cn(s.text, "font-pixel neon-text-pink")}>
+        <span className={cn(s.text, "font-pixel text-foreground")}>
           VibeDrop
         </span>
       )}
