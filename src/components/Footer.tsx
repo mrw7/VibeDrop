@@ -1,49 +1,70 @@
 import Link from "next/link"
+import Logo from "./Logo"
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-card/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Link
-              href="/"
-              className="text-lg font-bold tracking-tight text-foreground hover:opacity-80 transition-opacity"
-            >
-              VibeDrop
-            </Link>
-            <span className="text-sm text-muted-foreground">
-              — 分享 Vibe Coding 作品
-            </span>
+    <footer className="border-t border-border bg-secondary/40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* 品牌区 */}
+          <div className="space-y-3">
+            <Logo href="/" size="md" />
+            <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+              面向 Vibe Coding 社区的应用分享与试玩平台。上传 AI 生成应用,即刻体验。
+            </p>
           </div>
 
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/apps"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              发现作品
-            </Link>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              GitHub
-            </a>
-            <Link
-              href="/publish"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              发布作品
-            </Link>
-          </nav>
+          {/* 产品 */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-3">产品</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/apps" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                  发现作品
+                </Link>
+              </li>
+              <li>
+                <Link href="/publish" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                  发布作品
+                </Link>
+              </li>
+              <li>
+                <Link href="/auth/signin" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+                  登录 / 注册
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 资源 */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-3">资源</h4>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="https://github.com/mrw7/VibeDrop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                >
+                  GitHub 仓库
+                </a>
+              </li>
+              <li>
+                <span className="text-sm text-muted-foreground">
+                  仅供学习交流使用
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-border text-center">
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} VibeDrop. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+            Made with <span className="text-gradient font-semibold">Vibe Coding</span>
           </p>
         </div>
       </div>

@@ -41,9 +41,12 @@ export default function AppCard({
   return (
     <Link
       href={`/apps/${id}`}
-      className="group card-hover bg-card rounded-xl border border-border overflow-hidden animate-fade-in-up break-inside-avoid"
+      className="group relative card-hover bg-card rounded-xl border border-border overflow-hidden animate-fade-in-up break-inside-avoid"
     >
-      <div className="bg-muted relative overflow-hidden" style={{ minHeight: "160px" }}>
+      {/* hover 时顶部渐变光带 */}
+      <span className="absolute top-0 left-0 right-0 h-[2px] bg-brand-gradient opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+
+      <div className="relative overflow-hidden bg-muted" style={{ minHeight: "160px" }}>
         {coverImage ? (
           <Image
             src={coverImage}
@@ -51,12 +54,12 @@ export default function AppCard({
             width={0}
             height={0}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
             unoptimized={coverImage?.startsWith("https://")}
           />
         ) : (
-          <div className="flex items-center justify-center h-full min-h-[160px] text-muted-foreground">
-            <ImageIcon className="w-12 h-12 opacity-50" />
+          <div className="flex items-center justify-center h-full min-h-[160px] bg-grid">
+            <ImageIcon className="w-12 h-12 text-muted-foreground/40" />
           </div>
         )}
         {buildStatus !== "success" && (
@@ -106,7 +109,7 @@ export default function AppCard({
           </Link>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Heart className="w-4 h-4 fill-current" />
+              <Heart className="w-4 h-4" />
               {likesCount}
             </span>
             <span className="flex items-center gap-1">
@@ -115,8 +118,8 @@ export default function AppCard({
             </span>
           </div>
         </div>
-        <div className="flex gap-2">
-          {aiToolTag && <Badge>{aiToolTag}</Badge>}
+        <div className="flex flex-wrap gap-2">
+          {aiToolTag && <Badge variant="accent">{aiToolTag}</Badge>}
           {techStackTag && <Badge variant="secondary">{techStackTag}</Badge>}
         </div>
       </div>
