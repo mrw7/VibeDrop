@@ -8,6 +8,8 @@ import { verifyPassword } from "./password"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  // 反代(nginx)后必须信任 host,否则 v5 会以 host 与 NEXTAUTH_URL 不一致为由拒绝
+  trustHost: true,
   session: {
     strategy: "database",
     maxAge: 30 * 24 * 60 * 60, // 30 days
