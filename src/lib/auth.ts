@@ -82,21 +82,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider === "github") {
-        // Encrypt and store the user's GitHub access token
-        const encryptedToken = account.access_token
-          ? encryptToken(account.access_token)
-          : null
-        await prisma.user.update({
-          where: { email: user.email! },
-          data: {
-            githubAccessToken: encryptedToken,
-            githubId: profile?.id?.toString(),
-            githubLogin: profile?.login as string,
-            avatarUrl: profile?.avatar_url as string,
-            name: profile?.name as string || profile?.login as string,
-          },
-        })
+      // GitHub profile 信息(githubLogin/avatar 等)刷新:user 可能已存在
+      // 首次登录时 PrismaAdapter 尚未创建 user,update 会失败 → try/catch 忽略,
+      // 由下方 events.linkAccount 在 account/user 就绪后补存 token。
+      if (account?.provider === "github" && user.email) {
+        try {
+          await prisma.user.update({
+            where: { email: user.email },
+            data: {
+              githubId: profile?.id?.toString(),
+              githubLogin: profile?.login as string,
+              avatarUrl: profile?.avatar_url as string,
+              name: (profile?.name as string) || (profile?.login as string),
+            },
+          })
+        } catch {
+          // 首次登录 user 尚未创建,忽略;token 由 linkAccount event 补存
+        }
       }
       return true
     },
@@ -109,6 +111,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
       }
       return session
+    },
+  },
+  events: {
+    // account 关联时 user 已由 adapter 创建,此处安全地加密存储 GitHub token
+    async linkAccount({ account, user }) {
+      if (account?.provider === "github" && account.access_token) {
+        try {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              githubAccessToken: encryptToken(account.access_token),
+              githubId: account.providerAccountId,
+            },
+          })
+        } catch (e) {
+          console.error("[auth] linkAccount store token failed:", e)
+        }
+      }
     },
   },
   pages: {

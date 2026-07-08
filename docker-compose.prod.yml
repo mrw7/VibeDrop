@@ -15,6 +15,9 @@
 
 services:
   app:
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     build:
       context: .
       target: app-runner
@@ -34,6 +37,9 @@ services:
     restart: unless-stopped
     env_file:
       - .env.production
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     # Worker needs to build user projects (git clone, npm install, etc.)
     # Mount a persistent build cache to speed up repeated builds
     volumes:
