@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
         id: true,
         name: true,
         githubLogin: true,
-        avatarUrl: true,
+        image: true,
       },
       take: 10,
     })

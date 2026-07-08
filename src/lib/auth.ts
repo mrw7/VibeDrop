@@ -75,7 +75,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name || user.githubLogin || "用户",
-          image: user.avatarUrl,
+          image: user.image,
         }
       },
     }),
@@ -92,7 +92,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             data: {
               githubId: profile?.id?.toString(),
               githubLogin: profile?.login as string,
-              avatarUrl: profile?.avatar_url as string,
+              image: profile?.avatar_url as string,
               name: (profile?.name as string) || (profile?.login as string),
             },
           })

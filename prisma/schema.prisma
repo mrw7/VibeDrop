@@ -15,7 +15,7 @@ model User {
   githubId          String?   @unique
   githubLogin       String?
   name              String?
-  avatarUrl         String?
+  image             String?
   email             String?   @unique
   emailVerified     DateTime?
   githubAccessToken String?   // Encrypted at application level

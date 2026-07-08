@@ -59,11 +59,11 @@ export default async function AppsPage({
       buildStatus: string; buildId: string | null; playUrl: string | null
       aiToolTag: string | null; techStackTag: string | null; deviceType: string
       likesCount: number; commentsCount: number; createdAt: Date; updatedAt: Date
-      authorId_1: string; githubLogin: string; avatarUrl: string | null
+      authorId_1: string; githubLogin: string; image: string | null
     }>
   >(
     `SELECT a.*,
-            u.id as "authorId_1", u."githubLogin", u."avatarUrl", u."name"
+            u.id as "authorId_1", u."githubLogin", u."image", u."name"
      FROM "App" a
      JOIN "User" u ON a."authorId" = u.id
      ${whereClause}
@@ -94,7 +94,7 @@ export default async function AppsPage({
     author: {
       id: row.authorId_1,
       githubLogin: row.githubLogin,
-      avatarUrl: row.avatarUrl,
+      image: row.image,
       name: null, // name not selected in this query for performance
     },
   }))

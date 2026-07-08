@@ -65,7 +65,7 @@ export async function GET() {
           select: {
             id: true,
             githubLogin: true,
-            avatarUrl: true,
+            image: true,
           },
         },
       },

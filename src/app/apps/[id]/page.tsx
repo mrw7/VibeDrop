@@ -83,7 +83,7 @@ export default async function AppDetailPage({ params }: { params: Promise<{ id: 
         select: {
           id: true,
           githubLogin: true,
-          avatarUrl: true,
+          image: true,
           name: true,
         },
       },
@@ -92,7 +92,7 @@ export default async function AppDetailPage({ params }: { params: Promise<{ id: 
           user: {
             select: {
               githubLogin: true,
-              avatarUrl: true,
+              image: true,
               name: true,
             },
           },
@@ -119,7 +119,7 @@ export default async function AppDetailPage({ params }: { params: Promise<{ id: 
               id: true,
               name: true,
               githubLogin: true,
-              avatarUrl: true,
+              image: true,
             },
           },
         },

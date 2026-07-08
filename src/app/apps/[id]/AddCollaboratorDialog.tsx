@@ -21,7 +21,7 @@ interface SearchResult {
   id: string
   name: string | null
   githubLogin: string | null
-  avatarUrl: string | null
+  image: string | null
 }
 
 interface AddCollaboratorDialogProps {

@@ -71,7 +71,7 @@ export async function listCollaborators(appId: string) {
           id: true,
           name: true,
           githubLogin: true,
-          avatarUrl: true,
+          image: true,
         },
       },
     },

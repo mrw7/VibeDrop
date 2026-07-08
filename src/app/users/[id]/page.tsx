@@ -51,7 +51,7 @@ export default async function UserProfilePage({
               id: true,
               name: true,
               githubLogin: true,
-              avatarUrl: true,
+              image: true,
             },
           },
         },
