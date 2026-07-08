@@ -60,7 +60,9 @@ export async function signUp(formData: FormData) {
     console.warn("Failed to send verification email to", user.email)
   }
 
-  redirect(`/auth/verify?email=${encodeURIComponent(user.email!)}`)
+  // Dev mode: pass code in URL so it shows on the verify page (no SMTP needed)
+  const devParam = process.env.NODE_ENV !== "production" ? `&code=${token}` : ""
+  redirect(`/auth/verify?email=${encodeURIComponent(user.email!)}${devParam}`)
 }
 
 /**

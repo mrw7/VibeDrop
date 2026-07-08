@@ -57,26 +57,33 @@ async function sendEmail(to: string, subject: string, html: string): Promise<voi
 }
 
 /**
- * Send an email verification link to a new user.
+ * Send an email verification code to a new user.
  */
 export async function sendVerificationEmail(
   email: string,
-  token: string,
+  code: string,
   displayName: string,
 ): Promise<void> {
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000"
-  const verifyUrl = `${baseUrl}/api/auth/verify?token=${encodeURIComponent(token)}`
-
   const html = `<div style="max-width:480px;margin:0 auto;font-family:sans-serif">
   <h2 style="color:#e04f2e">VibeDrop</h2>
-  <p>Hi ${displayName}，</p>
-  <p>感谢注册 VibeDrop！请点击下方按钮验证你的邮箱：</p>
-  <a href="${verifyUrl}" style="display:inline-block;padding:12px 24px;background:#e04f2e;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">验证邮箱</a>
-  <p style="color:#666;font-size:14px;margin-top:24px">或复制此链接：<br><code>${verifyUrl}</code></p>
-  <p style="color:#999;font-size:13px">此链接 24 小时内有效。</p>
+  <p>Hi ${displayName},</p>
+  <p>感谢注册 VibeDrop！请输入以下验证码完成注册：</p>
+  <div style="text-align:center;padding:20px 0">
+    <span style="display:inline-block;padding:16px 32px;background:#e04f2e;color:#fff;font-size:32px;font-weight:bold;letter-spacing:8px;border-radius:8px;font-family:monospace">${code}</span>
+  </div>
+  <p style="color:#666;font-size:14px;margin-top:24px">此验证码 10 分钟内有效。</p>
+  <p style="color:#999;font-size:13px">如果你没有注册 VibeDrop，请忽略此邮件。</p>
 </div>`
 
-  await sendEmail(email, "验证你的 VibeDrop 邮箱", html)
+  await sendEmail(email, "VibeDrop 邮箱验证码: ${code}", html)
+
+  // In dev mode: also dump code to console so devs can test without SMTP
+  if (process.env.NODE_ENV !== "production") {
+    console.log("--- VERIFICATION CODE (dev) ---")
+    console.log("Email:", email)
+    console.log("Code:", code)
+    console.log("--- END ---")
+  }
 }
 
 /**
