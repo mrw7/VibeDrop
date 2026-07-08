@@ -20,7 +20,6 @@ export function getUserDisplayName(user: {
  */
 export function getUserAvatarUrl(user: {
   image?: string | null
-  image?: string | null
 }): string {
-  return user.image || user.image || "/default-avatar.svg"
+  return user.image || "/default-avatar.svg"
 }
