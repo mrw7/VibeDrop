@@ -1,78 +1,78 @@
-# VibeDrop
+<div align="center">
+  <img src="docs/images/banner.png" alt="VibeDrop — Share Your Vibe Coding" width="100%" />
+</div>
 
-> An app sharing and play-testing platform for the Vibe Coding community.
+<h1 align="center">VibeDrop</h1>
 
-**English** | [简体中文](README.zh-CN.md)
+<p align="center">
+  <b>Share, build and play AI-generated web apps.</b><br />
+  An app sharing and play-testing platform for the Vibe Coding community.
+</p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6)](https://www.typescriptlang.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748)](https://www.prisma.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
+<p align="center">
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square" alt="Next.js 15" /></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square" alt="React 19" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square" alt="TypeScript 5.7" /></a>
+  <a href="https://www.prisma.io/"><img src="https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square" alt="Prisma 6" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" /></a>
+  <a href="#contributing"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs welcome" /></a>
+</p>
 
-VibeDrop gives web apps built with Cursor, v0, Bolt, Lovable and other AI tools a place to be played:
-authors upload a ZIP or connect a GitHub repository, and the platform builds and hosts it.
-Visitors can play the app inside a phone shell, like, comment, fork and tip — without leaving the site.
+<p align="center">
+  <a href="#highlights">Highlights</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#documentation">Docs</a> ·
+  <a href="README.zh-CN.md">简体中文</a>
+</p>
 
-## Contents
+## Highlights
 
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Scripts](#scripts)
-- [Project Structure](#project-structure)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Features
-
-### Publishing & Builds
-
-| Capability | Description |
-|------------|-------------|
-| ZIP upload | Upload prebuilt static assets; they are extracted and hosted automatically |
-| GitHub auto-build | Link a public repository; the worker clones, installs dependencies and builds it |
-| Multi-framework | Detects and builds React / Vue / Vite / Expo / Flutter Web projects |
-| Build history & rollback | Keeps every build record, log and artifact; roll back to a previous version in one click |
-| In-browser editor | Monaco-based editor for changing code and redeploying without leaving the browser |
-| Collaboration | App authors can invite collaborators to maintain an app together |
-
-### Community & Play
-
-| Capability | Description |
-|------------|-------------|
-| Community hall | Search, tag filters and a mixed ranking (recency + popularity) |
-| Phone shell player | iPhone / Android shells, orientation switch and fullscreen mode |
-| Native cloud emulator | redroid-based Android emulator (optional, requires KVM) |
-| Interactions | Likes, comments, reports, forks and tips (Stripe) |
-| User profiles | Author details and every app they have published |
-| Share cards | Dynamic OG images in three templates for social sharing |
-
-### Authentication & Security
-
-| Capability | Description |
-|------------|-------------|
-| Sign-in | GitHub / Google OAuth; NextAuth Credentials (email / password) |
-| Accounts | Sign-up, email verification and password reset (Server Actions); author / collaborator / admin roles |
-| XSS protection | `sanitize-html` applied in the Zod validation layer |
-| CSRF protection | Origin / Referer validation |
-| Rate limiting | 20 req/min globally; 5 req/min on auth endpoints |
-| Encryption | GitHub tokens encrypted with AES-256-GCM |
-| Security headers | CSP, HSTS and four more security headers |
+| 🚀 Publish in minutes | 📱 Play without installing | 🌍 Built for the community |
+|:---:|:---:|:---:|
+| Upload a ZIP or connect a GitHub repo. VibeDrop builds and hosts it automatically. | iPhone and Android frames, landscape mode and fullscreen playback — right in the browser. | Likes, comments, forks, tips and share cards turn every app into a social object. |
 
 ## Screenshots
 
+<p align="center">
+  <img src="docs/images/home.png" alt="VibeDrop home page" width="100%" />
+</p>
+
+| Sign in | Home (mobile) |
+|:---:|:---:|
+| <img src="docs/images/signin.png" alt="Sign in page" width="100%" /> | <img src="docs/images/home-mobile.png" alt="VibeDrop home page on mobile" width="100%" /> |
+
 > Captured from a local development instance. Dark is the default theme.
 
-| Home (desktop) | Sign-in | Home (mobile) |
-|----------------|---------|---------------|
-| ![Home](docs/images/home.png) | ![Sign in](docs/images/signin.png) | ![Home mobile](docs/images/home-mobile.png) |
+## Features
+
+### Publishing & builds
+
+- **ZIP upload** — upload prebuilt static assets; they are extracted and hosted automatically.
+- **GitHub auto-build** — link a public repository and the worker clones, installs dependencies and builds it.
+- **Multi-framework** — detects and builds React / Vue / Vite / Expo / Flutter Web projects.
+- **Build history & rollback** — every build record, log and artifact is kept; roll back in one click.
+- **In-browser editor** — a Monaco-based editor for changing code and redeploying without leaving the browser.
+- **Collaboration** — app authors can invite collaborators to maintain an app together.
+
+### Play & community
+
+- **Community hall** — search, tag filters and a mixed ranking based on recency and popularity.
+- **Phone shell player** — iPhone / Android shells, orientation switch and fullscreen mode.
+- **Native cloud emulator** — an optional redroid-based Android emulator for native builds (requires KVM).
+- **Interactions** — likes, comments, reports, forks and tips through Stripe.
+- **User profiles** — author details and every app they have published.
+- **Share cards** — dynamic OG images in three templates for social platforms.
+
+### Authentication & security
+
+- **Sign-in** — GitHub / Google OAuth plus NextAuth Credentials for email and password.
+- **Accounts & roles** — sign-up, email verification, password reset, and author / collaborator / admin roles.
+- **XSS & CSRF** — `sanitize-html` in the Zod validation layer and Origin / Referer validation.
+- **Rate limiting** — 20 req/min globally and 5 req/min on authentication endpoints.
+- **Encryption** — GitHub tokens are encrypted with AES-256-GCM.
+- **Security headers** — CSP, HSTS and four more security headers.
 
 ## Architecture
 
@@ -91,10 +91,10 @@ flowchart LR
     N -->|iframe playback| OSS
 ```
 
-- **Web layer**: Next.js 15 App Router with React Server Components; page data is read on the server.
-- **Data layer**: Prisma + PostgreSQL. Counters such as likes and comments are updated atomically in transactions.
-- **Build layer**: a standalone worker process (running in a Docker container) polls the database, runs `git clone` and the project build inside the container, and uploads artifacts to OSS.
-- **Storage layer**: OSS stores ZIPs, build artifacts and cover images; the database keeps metadata and URLs only.
+- **Web layer** — Next.js 15 App Router with React Server Components; page data is read on the server.
+- **Data layer** — Prisma + PostgreSQL. Counters such as likes and comments are updated atomically in transactions.
+- **Build layer** — a standalone worker in a Docker container polls the database, builds projects inside the container and uploads artifacts to OSS.
+- **Storage layer** — OSS stores ZIPs, build artifacts and cover images; the database keeps metadata and URLs only.
 
 ## Tech Stack
 
@@ -111,55 +111,39 @@ flowchart LR
 | Testing | Vitest (integration), Playwright (E2E) |
 | CI / Deployment | GitHub Actions, Docker Compose, nginx, Let's Encrypt |
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
-
-- Node.js 20+
-- PostgreSQL 14+ (or Supabase)
-- Optional: Docker (for the local stack and build worker)
-
-### 1. Install dependencies
+**Prerequisites:** Node.js 20+, PostgreSQL 14+ (or Supabase), and optionally Docker.
 
 ```bash
+git clone https://github.com/mrw7/VibeDrop.git
+cd VibeDrop
 npm install
-```
-
-### 2. Configure environment variables
-
-```bash
-cp .env.example .env.local
-# Edit .env.local and fill in at least DATABASE_URL, NEXTAUTH_SECRET,
-# GitHub OAuth and OSS settings.
-```
-
-See [Environment Variables](#environment-variables) for every variable.
-
-### 3. Initialize the database
-
-```bash
+cp .env.example .env.local      # fill in DATABASE_URL, NEXTAUTH_SECRET, OAuth and OSS
 npx prisma generate
 npx prisma migrate dev --name init
+npm run dev                     # http://localhost:3000
 ```
 
-### 4. Start the development server
+<details>
+<summary><b>🐳 Run the full local stack with Docker</b></summary>
 
-```bash
-npm run dev
-# http://localhost:3000
-```
-
-### Run the full local stack with Docker
+<br />
 
 ```bash
 cp .env.example .env.local   # fill in the external database and OSS settings
 docker compose up --build    # app (3000) + build worker
 ```
 
-> The local compose file does not include PostgreSQL. `DATABASE_URL` points to an
-> external database (Supabase or a self-hosted instance).
+The local compose file does not include PostgreSQL. `DATABASE_URL` points to an
+external database (Supabase or a self-hosted instance).
 
-## Environment Variables
+</details>
+
+<details>
+<summary><b>🔧 Environment variables</b></summary>
+
+<br />
 
 | Variable | Required | Description |
 |----------|:--------:|-------------|
@@ -181,10 +165,14 @@ docker compose up --build    # app (3000) + build worker
 
 Full templates: [`.env.example`](./.env.example) and [`.env.production.example`](./.env.production.example).
 
-> ⚠️ Never commit real `.env*` files. Generate `NEXTAUTH_SECRET`, `ENCRYPTION_KEY`
-> and other secrets with `openssl rand` in the target environment.
+> ⚠️ Never commit real `.env*` files. Generate secrets with `openssl rand` in the target environment.
 
-## Scripts
+</details>
+
+<details>
+<summary><b>📜 All scripts</b></summary>
+
+<br />
 
 | Command | Description |
 |---------|-------------|
@@ -201,7 +189,14 @@ Full templates: [`.env.example`](./.env.example) and [`.env.production.example`]
 | `npm run test:watch` | Run Vitest in watch mode |
 | `npm run test:e2e` | Run Playwright E2E tests |
 
+</details>
+
 ## Project Structure
+
+<details>
+<summary><b>📁 Directory layout</b></summary>
+
+<br />
 
 ```text
 VibeDrop/
@@ -237,7 +232,12 @@ VibeDrop/
 └── .env.example                 # Environment variable template (no real secrets)
 ```
 
-### Key Files
+</details>
+
+<details>
+<summary><b>🔑 Key files</b></summary>
+
+<br />
 
 | File | Purpose |
 |------|---------|
@@ -258,6 +258,8 @@ VibeDrop/
 | `next.config.ts` | Security headers including CSP / HSTS |
 | `.github/workflows/ci.yml` | CI: lint / type check, Vitest, production build |
 
+</details>
+
 ## Testing
 
 ```bash
@@ -266,54 +268,56 @@ npm run test:e2e  # Playwright: navigation and core-flow smoke tests
 npm run typecheck
 ```
 
-> Note: `vitest` and `@playwright/test` are not yet declared in `devDependencies`.
-> Install them before the first run:
-> `npm i -D vitest @playwright/test && npx playwright install`
+> **Note:** `vitest` and `@playwright/test` are not yet declared in `devDependencies`.
+> Install them before the first run: `npm i -D vitest @playwright/test && npx playwright install`.
 
-CI runs lint / type checks, Vitest integration tests (with a PostgreSQL service)
-and a production build in GitHub Actions (see `.github/workflows/ci.yml`).
-Playwright E2E tests run locally or in a dedicated environment.
+CI runs lint / type checks, Vitest integration tests (with a PostgreSQL service) and a
+production build in GitHub Actions. Playwright E2E tests run locally or in a dedicated environment.
 
 ## Deployment
 
-Production deployment (Alibaba Cloud ECS + Docker Compose + nginx + Let's Encrypt)
-is documented in [`docs/deployment.md`](./docs/deployment.md), including:
+Production deployment on Alibaba Cloud ECS with Docker Compose, nginx and Let's Encrypt is
+documented in [`docs/deployment.md`](docs/deployment.md):
 
-- Secret generation and a pre-launch security checklist
+- secret generation and a pre-launch security checklist
 - `docker compose -f docker-compose.prod.yml up -d --build`
 - SSL certificate issuance and renewal
-- Backup, operations and known limitations
+- backup, operations and known limitations
 
 ## Documentation
 
-All documentation is English by default. Chinese versions are available for the
-README, project status and deployment guide.
+All documentation is English by default. Chinese versions are available for the README,
+project status, deployment guide and agent workflow.
 
 | Document | Description |
 |----------|-------------|
-| [`STATUS.md`](./STATUS.md) | Project status: completed features and roadmap |
-| [`CONTEXT.md`](./CONTEXT.md) | Domain model and glossary |
-| [`docs/prd-mvp.md`](./docs/prd-mvp.md) | Product requirements (27 user stories) |
-| [`docs/deployment.md`](./docs/deployment.md) | Deployment and operations guide |
-| [`docs/adr/`](./docs/adr/) | Architecture decision records |
-| [`.claude/AGENTS.md`](./.claude/AGENTS.md) | Spec → Plan → Exec development workflow |
-| [`.scratch/`](./.scratch/) | Local issue tracker |
+| [`STATUS.md`](STATUS.md) | Project status: completed features and roadmap |
+| [`CONTEXT.md`](CONTEXT.md) | Domain model and glossary |
+| [`docs/prd-mvp.md`](docs/prd-mvp.md) | Product requirements (27 user stories) |
+| [`docs/deployment.md`](docs/deployment.md) | Deployment and operations guide |
+| [`docs/adr/`](docs/adr/) | Architecture decision records |
+| [`.claude/AGENTS.md`](.claude/AGENTS.md) | Spec → Plan → Exec development workflow |
+| [`.scratch/`](.scratch/) | Local issue tracker |
 
-Chinese versions: [`README.zh-CN.md`](./README.zh-CN.md),
-[`STATUS.zh-CN.md`](./STATUS.zh-CN.md),
-[`docs/deployment.zh-CN.md`](./docs/deployment.zh-CN.md).
+Chinese versions: [`README.zh-CN.md`](README.zh-CN.md), [`STATUS.zh-CN.md`](STATUS.zh-CN.md),
+[`docs/deployment.zh-CN.md`](docs/deployment.zh-CN.md), [`.claude/AGENTS.zh-CN.md`](.claude/AGENTS.zh-CN.md).
 
 ## Contributing
 
 1. Fork the repository and create a feature branch: `git checkout -b feat/your-feature`
-2. Follow the Spec → Plan → Exec workflow (see `.claude/AGENTS.md`)
+2. Follow the Spec → Plan → Exec workflow (see [`.claude/AGENTS.md`](.claude/AGENTS.md))
 3. Before submitting, run `npm run lint`, `npm run typecheck` and `npm test`
-4. Write commit messages in English and follow Conventional Commits
-   (`feat:` / `fix:` / `docs:` …)
+4. Write commit messages in English and follow Conventional Commits (`feat:` / `fix:` / `docs:` …)
 5. Open a pull request describing the motivation and how you verified the change
 
 ## License
 
-Released under the [MIT License](./LICENSE).
+Released under the [MIT License](LICENSE).
 
 Copyright (c) 2026 mrw7
+
+---
+
+<p align="center">
+  <sub>Built with ❤️ for the Vibe Coding community.</sub>
+</p>

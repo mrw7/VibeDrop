@@ -1,77 +1,78 @@
-# VibeDrop
+<div align="center">
+  <img src="docs/images/banner.png" alt="VibeDrop — Share Your Vibe Coding" width="100%" />
+</div>
 
-> 面向 Vibe Coding 社区的 App 分享与试玩平台。
+<h1 align="center">VibeDrop</h1>
 
-[English](README.md) | **简体中文**
+<p align="center">
+  <b>分享、构建、试玩 AI 生成的应用。</b><br />
+  面向 Vibe Coding 社区的 App 分享与试玩平台。
+</p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6)](https://www.typescriptlang.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748)](https://www.prisma.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
+<p align="center">
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square" alt="Next.js 15" /></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square" alt="React 19" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square" alt="TypeScript 5.7" /></a>
+  <a href="https://www.prisma.io/"><img src="https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square" alt="Prisma 6" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" /></a>
+  <a href="#参与贡献"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs welcome" /></a>
+</p>
 
-VibeDrop 让用 Cursor、v0、Bolt、Lovable 等 AI 工具做出来的 Web App 有一个「可玩」的展示空间：
-作者上传 ZIP 或连接 GitHub 仓库，平台自动构建并托管；访客可以在手机外壳中直接试玩、点赞、评论、Fork 和打赏。
+<p align="center">
+  <a href="#功能亮点">功能亮点</a> ·
+  <a href="#界面预览">界面预览</a> ·
+  <a href="#技术架构">技术架构</a> ·
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#项目文档">项目文档</a> ·
+  <a href="README.md">English</a>
+</p>
 
-## 目录
+## 功能亮点
 
-- [功能特性](#功能特性)
-- [界面预览](#界面预览)
-- [技术架构](#技术架构)
-- [技术栈](#技术栈)
-- [快速开始](#快速开始)
-- [环境变量](#环境变量)
-- [常用脚本](#常用脚本)
-- [目录结构](#目录结构)
-- [测试](#测试)
-- [部署](#部署)
-- [项目文档](#项目文档)
-- [参与贡献](#参与贡献)
-- [许可证](#许可证)
+| 🚀 几分钟内发布 | 📱 无需安装即可试玩 | 🌍 为社区而生 |
+|:---:|:---:|:---:|
+| 上传 ZIP 或连接 GitHub 仓库，VibeDrop 自动构建并托管。 | iPhone / Android 手机外壳、横竖屏切换与全屏播放，全部在浏览器中完成。 | 点赞、评论、Fork、打赏与分享卡片，让每个作品都成为社区的一部分。 |
+
+## 界面预览
+
+<p align="center">
+  <img src="docs/images/home.png" alt="VibeDrop 首页" width="100%" />
+</p>
+
+| 登录页 | 首页（移动端） |
+|:---:|:---:|
+| <img src="docs/images/signin.png" alt="登录页" width="100%" /> | <img src="docs/images/home-mobile.png" alt="移动端首页" width="100%" /> |
+
+> 截图来自本地开发实例，暗色主题为默认主题。
 
 ## 功能特性
 
 ### 发布与构建
 
-| 能力 | 说明 |
-|------|------|
-| ZIP 上传 | 直接上传构建好的静态资源，自动解压并托管 |
-| GitHub 自动构建 | 关联公开仓库，Worker 自动克隆、安装依赖并构建 |
-| 多框架支持 | 自动识别并构建 React / Vue / Vite / Expo / Flutter Web 项目 |
-| 构建历史与回滚 | 保留每次构建记录、日志与产物，可一键回滚到历史版本 |
-| 浏览器内编辑器 | 基于 Monaco 的在线代码编辑器，可直接修改并重新部署 |
-| 多人协作 | App 作者可邀请协作者共同维护 |
+- **ZIP 上传** — 上传构建好的静态资源，自动解压并托管。
+- **GitHub 自动构建** — 关联公开仓库，Worker 自动克隆、安装依赖并构建。
+- **多框架支持** — 自动识别并构建 React / Vue / Vite / Expo / Flutter Web 项目。
+- **构建历史与回滚** — 保留每次构建记录、日志与产物，可一键回滚到历史版本。
+- **浏览器内编辑器** — 基于 Monaco 的在线编辑器，修改代码后可直接重新部署。
+- **多人协作** — App 作者可邀请协作者共同维护。
 
 ### 社区与试玩
 
-| 能力 | 说明 |
-|------|------|
-| 社区大厅 | 搜索、标签筛选、混合排序（时间 + 热度） |
-| 手机外壳播放器 | iPhone / Android 外壳、横竖屏切换、全屏模式 |
-| 原生云模拟器 | 基于 redroid 的 Android 云模拟器（可选，需要 KVM） |
-| 互动 | 点赞、评论、举报、Fork、打赏（Stripe） |
-| 用户主页 | 展示作者信息与其发布的所有 App |
-| 分享卡片 | 三种模板的动态 OG Image，便于社交平台传播 |
+- **社区大厅** — 搜索、标签筛选，以及基于时间与热度的混合排序。
+- **手机外壳播放器** — iPhone / Android 外壳、横竖屏切换与全屏模式。
+- **原生云模拟器** — 可选的 redroid Android 云模拟器，用于原生构建（需要 KVM）。
+- **互动** — 点赞、评论、举报、Fork 与 Stripe 打赏。
+- **用户主页** — 展示作者信息与其发布的所有 App。
+- **分享卡片** — 三种模板的动态 OG Image，便于社交平台传播。
 
 ### 认证与安全
 
-| 能力 | 说明 |
-|------|------|
-| 登录方式 | GitHub / Google OAuth；NextAuth Credentials（邮箱 / 密码） |
-| 账号能力 | 注册、邮箱验证、密码重置（Server Actions）；权限控制：作者 / 协作者 / 管理员 |
-| XSS 防护 | `sanitize-html` 在 Zod 校验层统一清洗 |
-| CSRF 防护 | Origin / Referer 校验 |
-| 限流 | 全局 20 req/min，认证接口 5 req/min |
-| 加密 | GitHub Token 使用 AES-256-GCM 加密存储 |
-| 安全响应头 | CSP、HSTS 等 6 项响应头 |
-
-## 界面预览
-
-> 截图来自本地开发实例（暗色主题为默认主题）。
-
-| 首页（桌面） | 登录页 | 首页（移动端） |
-|--------------|--------|----------------|
-| ![首页](docs/images/home.png) | ![登录页](docs/images/signin.png) | ![首页移动端](docs/images/home-mobile.png) |
+- **登录方式** — GitHub / Google OAuth，以及 NextAuth Credentials 邮箱密码登录。
+- **账号与权限** — 注册、邮箱验证、密码重置，以及作者 / 协作者 / 管理员三级权限。
+- **XSS 与 CSRF** — Zod 校验层统一使用 `sanitize-html` 清洗，并校验 Origin / Referer。
+- **限流** — 全局 20 req/min，认证接口 5 req/min。
+- **加密** — GitHub Token 使用 AES-256-GCM 加密存储。
+- **安全响应头** — CSP、HSTS 等 6 项安全响应头。
 
 ## 技术架构
 
@@ -84,16 +85,16 @@ flowchart LR
     N -->|GitHub OAuth| GH[GitHub]
     N -->|Stripe Webhook| ST[Stripe]
     W["构建 Worker（Docker 容器）"] -->|轮询待构建任务| DB
-    W -->|git clone & npm build| T[构建工具链]
+    W -->|git clone 与 npm build| T[构建工具链]
     T -->|构建产物| OSS
     W -->|写入构建日志| DB
     N -->|iframe 播放| OSS
 ```
 
-- **Web 层**：Next.js 15 App Router + React Server Components，页面数据在服务端读取。
-- **数据层**：Prisma + PostgreSQL；Like / Comment 等计数在事务中原子更新。
-- **构建层**：独立 Worker 进程（运行于 Docker 容器）轮询数据库，在容器内执行 `git clone` 与项目构建，产物上传 OSS。
-- **存储层**：OSS 存放 ZIP、构建产物与封面图；数据库只保存元数据与 URL。
+- **Web 层** — Next.js 15 App Router + React Server Components，页面数据在服务端读取。
+- **数据层** — Prisma + PostgreSQL；Like / Comment 等计数在事务中原子更新。
+- **构建层** — 独立 Worker 进程运行在 Docker 容器中，轮询数据库并在容器内构建项目，产物上传 OSS。
+- **存储层** — OSS 存放 ZIP、构建产物与封面图；数据库只保存元数据与 URL。
 
 ## 技术栈
 
@@ -112,51 +113,36 @@ flowchart LR
 
 ## 快速开始
 
-### 前置要求
-
-- Node.js 20+
-- PostgreSQL 14+（或 Supabase）
-- 可选：Docker（本地一键启动 / 构建 Worker）
-
-### 1. 安装依赖
+**前置要求：** Node.js 20+、PostgreSQL 14+（或 Supabase），可选 Docker。
 
 ```bash
+git clone https://github.com/mrw7/VibeDrop.git
+cd VibeDrop
 npm install
-```
-
-### 2. 配置环境变量
-
-```bash
-cp .env.example .env.local
-# 编辑 .env.local，至少填入 DATABASE_URL、NEXTAUTH_SECRET、GitHub OAuth、OSS 配置
-```
-
-所有变量说明见下方[环境变量](#环境变量)。
-
-### 3. 初始化数据库
-
-```bash
+cp .env.example .env.local      # 填入 DATABASE_URL、NEXTAUTH_SECRET、OAuth 与 OSS 配置
 npx prisma generate
 npx prisma migrate dev --name init
+npm run dev                     # http://localhost:3000
 ```
 
-### 4. 启动开发服务器
+<details>
+<summary><b>🐳 使用 Docker 启动完整本地栈</b></summary>
+
+<br />
 
 ```bash
-npm run dev
-# http://localhost:3000
-```
-
-### 使用 Docker 启动完整本地栈
-
-```bash
-cp .env.example .env.local   # 填入云端数据库与 OSS 配置
+cp .env.example .env.local   # 填入外部数据库与 OSS 配置
 docker compose up --build    # app (3000) + build worker
 ```
 
-> 本地 compose 不包含 PostgreSQL，`DATABASE_URL` 指向外部数据库（Supabase 或自建实例）。
+本地 compose 不包含 PostgreSQL，`DATABASE_URL` 指向外部数据库（Supabase 或自建实例）。
 
-## 环境变量
+</details>
+
+<details>
+<summary><b>🔧 环境变量</b></summary>
+
+<br />
 
 | 变量 | 必填 | 说明 |
 |------|:----:|------|
@@ -176,11 +162,16 @@ docker compose up --build    # app (3000) + build worker
 | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | — | 打赏功能所需 |
 | `EMULATOR_ENABLED` / `EMULATOR_DOCKER_HOST` / `EMULATOR_MAX_SESSIONS` / `EMULATOR_SESSION_TIMEOUT` | — | 原生云模拟器配置 |
 
-完整的变量模板见 [`.env.example`](./.env.example) 与 [`.env.production.example`](./.env.production.example)。
+完整模板见 [`.env.example`](./.env.example) 与 [`.env.production.example`](./.env.production.example)。
 
-> ⚠️ 不要提交真实的 `.env*` 文件。`NEXTAUTH_SECRET`、`ENCRYPTION_KEY` 等请使用 `openssl rand` 在目标环境生成。
+> ⚠️ 不要提交真实的 `.env*` 文件。请在目标环境使用 `openssl rand` 生成密钥。
 
-## 常用脚本
+</details>
+
+<details>
+<summary><b>📜 常用脚本</b></summary>
+
+<br />
 
 | 命令 | 说明 |
 |------|------|
@@ -197,7 +188,14 @@ docker compose up --build    # app (3000) + build worker
 | `npm run test:watch` | 监听模式运行测试 |
 | `npm run test:e2e` | 运行 Playwright E2E 测试 |
 
-## 目录结构
+</details>
+
+## 项目结构
+
+<details>
+<summary><b>📁 目录结构</b></summary>
+
+<br />
 
 ```text
 VibeDrop/
@@ -233,7 +231,12 @@ VibeDrop/
 └── .env.example                 # 环境变量模板（无真实密钥）
 ```
 
-### 关键文件说明
+</details>
+
+<details>
+<summary><b>🔑 关键文件说明</b></summary>
+
+<br />
 
 | 文件 | 作用 |
 |------|------|
@@ -254,6 +257,8 @@ VibeDrop/
 | `next.config.ts` | CSP / HSTS 等安全响应头 |
 | `.github/workflows/ci.yml` | CI：Lint / 类型检查、Vitest、生产构建 |
 
+</details>
+
 ## 测试
 
 ```bash
@@ -262,44 +267,55 @@ npm run test:e2e  # Playwright：页面导航与核心流程冒烟
 npm run typecheck
 ```
 
-> 注意：当前 `devDependencies` 尚未声明 `vitest` 与 `@playwright/test`。首次运行前请安装：
-> `npm i -D vitest @playwright/test && npx playwright install`
+> **注意：** 当前 `devDependencies` 尚未声明 `vitest` 与 `@playwright/test`。
+> 首次运行前请安装：`npm i -D vitest @playwright/test && npx playwright install`。
 
-CI 在 GitHub Actions 中运行 Lint / 类型检查、Vitest 集成测试（带 PostgreSQL service）与生产构建
-（见 `.github/workflows/ci.yml`）。Playwright E2E 需在本地或独立环境中运行。
+CI 在 GitHub Actions 中运行 Lint / 类型检查、Vitest 集成测试（带 PostgreSQL service）与生产构建。
+Playwright E2E 需在本地或独立环境中运行。
 
 ## 部署
 
 生产部署（阿里云 ECS + Docker Compose + nginx + Let's Encrypt）的完整步骤见
-[`docs/deployment.zh-CN.md`](./docs/deployment.zh-CN.md)，包括：
+[`docs/deployment.zh-CN.md`](docs/deployment.zh-CN.md)：
 
-- 环境变量生成与安全清单
+- 环境变量生成与上线前安全检查清单
 - `docker compose -f docker-compose.prod.yml up -d --build`
 - SSL 证书申请与续期
 - 备份、运维与已知限制
 
 ## 项目文档
 
+所有文档默认使用英文，README、项目状态、部署指南与 Agent 工作流提供中文版本。
+
 | 文档 | 说明 |
 |------|------|
-| [`STATUS.zh-CN.md`](./STATUS.zh-CN.md) | 项目状态：已完成功能与路线图 |
-| [`CONTEXT.md`](./CONTEXT.md) | 领域模型与术语表 |
-| [`docs/prd-mvp.md`](./docs/prd-mvp.md) | 产品需求文档（27 个 User Story） |
-| [`docs/deployment.zh-CN.md`](./docs/deployment.zh-CN.md) | 部署与运维指南 |
-| [`docs/adr/`](./docs/adr/) | 架构决策记录 |
-| [`.claude/AGENTS.zh-CN.md`](./.claude/AGENTS.zh-CN.md) | Spec → Plan → Exec 开发工作流 |
-| [`.scratch/`](./.scratch/) | 本地 Issue 跟踪 |
+| [`STATUS.zh-CN.md`](STATUS.zh-CN.md) | 项目状态：已完成功能与路线图 |
+| [`CONTEXT.md`](CONTEXT.md) | 领域模型与术语表 |
+| [`docs/prd-mvp.md`](docs/prd-mvp.md) | 产品需求文档（27 个 User Story） |
+| [`docs/deployment.zh-CN.md`](docs/deployment.zh-CN.md) | 部署与运维指南 |
+| [`docs/adr/`](docs/adr/) | 架构决策记录 |
+| [`.claude/AGENTS.zh-CN.md`](.claude/AGENTS.zh-CN.md) | Spec → Plan → Exec 开发工作流 |
+| [`.scratch/`](.scratch/) | 本地 Issue 跟踪 |
+
+中文版本：[`README.zh-CN.md`](README.zh-CN.md)、[`STATUS.zh-CN.md`](STATUS.zh-CN.md)、
+[`docs/deployment.zh-CN.md`](docs/deployment.zh-CN.md)、[`.claude/AGENTS.zh-CN.md`](.claude/AGENTS.zh-CN.md)。
 
 ## 参与贡献
 
 1. Fork 本仓库并创建功能分支：`git checkout -b feat/your-feature`
-2. 遵循 Spec → Plan → Exec 工作流（见 `.claude/AGENTS.md`）
+2. 遵循 Spec → Plan → Exec 工作流（见 [`.claude/AGENTS.zh-CN.md`](.claude/AGENTS.zh-CN.md)）
 3. 提交前运行 `npm run lint`、`npm run typecheck`、`npm test`
 4. Commit message 使用英文，遵循 Conventional Commits（`feat:` / `fix:` / `docs:` …）
 5. 提交 Pull Request，并描述改动动机与验证方式
 
 ## 许可证
 
-本项目采用 [MIT License](./LICENSE) 开源。
+本项目采用 [MIT License](LICENSE) 开源。
 
 Copyright (c) 2026 mrw7
+
+---
+
+<p align="center">
+  <sub>用 ❤️ 为 Vibe Coding 社区构建</sub>
+</p>
