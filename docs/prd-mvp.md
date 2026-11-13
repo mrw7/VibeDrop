@@ -129,7 +129,7 @@ VibeDrop 是一个面向 Vibe Coding 社区的 App 分享与试玩平台。用�
 
 ## Further Notes
 
-- License: SSPL (Server Side Public License) — see ADR-0001
+- License: MIT (see `LICENSE` / ADR-0005)
 - All vibe-coded apps are expected to be web-based or web-compilable for MVP
 - The platform itself should be a showcase of good vibe coding practices
 - Community culture is important — consider "Vibe Hackathon" events for launch

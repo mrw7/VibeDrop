@@ -1,7 +1,7 @@
 # ADR-0001: SSPL License Choice
 
 ## Status
-Accepted
+Superseded by [ADR-0005](./0005-mit-license.md) (MIT) on 2026-11-13.
 
 ## Context
 VibeDrop is a platform that hosts and runs user-generated web applications. We needed a license that:

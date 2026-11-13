@@ -5,13 +5,14 @@
 ### Core Entities
 
 #### User
-A person who authenticates via GitHub OAuth to use the platform. Each User has a unique GitHub identity.
+A person who authenticates via GitHub OAuth, Google OAuth, or email/password. GitHub fields are optional for users who sign up with email.
 
 - **id**: UUID, primary key
-- **githubId**: string, GitHub user ID
-- **githubLogin**: string, GitHub username
-- **avatarUrl**: string, GitHub avatar URL
+- **githubId**: string, optional, GitHub user ID
+- **githubLogin**: string, optional, GitHub username
+- **avatarUrl**: string, optional avatar URL
 - **email**: string, optional
+- **passwordHash**: string, optional, bcrypt hash for email/password users
 - **createdAt**: timestamp
 
 #### App

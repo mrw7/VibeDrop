@@ -10,12 +10,12 @@
 **VibeDrop** — 面向 Vibe Coding 社区的 App 分享与试玩平台。
 
 - **技术栈**: Next.js 15 + React 19 + TypeScript + TailwindCSS v4 + shadcn/ui + Prisma + PostgreSQL
-- **认证**: NextAuth.js v5 + GitHub OAuth
+- **认证**: NextAuth.js v5 + GitHub / Google OAuth + 邮箱密码
 - **数据库**: Alibaba Cloud Supabase (PostgreSQL)
 - **文件存储**: Alibaba Cloud OSS
 - **构建**: Docker Worker (`scripts/build-worker.ts`)
 - **测试**: Vitest + Playwright + GitHub Actions CI
-- **许可证**: SSPL
+- **许可证**: MIT (见 `LICENSE` / ADR-0005)
 
 ---
 
@@ -223,6 +223,6 @@ npm run typecheck              # TypeScript 检查
 | Spec 索引 | `.claude/specs/_completed.md` |
 | 领域模型 | `CONTEXT.md` |
 | 产品需求 | `docs/prd-mvp.md` (27 User Stories) |
-| 架构决策 | `docs/adr/0001-0004` |
+| 架构决策 | `docs/adr/0001-0005` |
 | 代码审计 | `.claude/optimization/audit-2026-07-02.md` |
 | Issue 跟踪 | `.scratch/` |
