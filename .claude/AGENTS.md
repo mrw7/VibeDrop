@@ -1,70 +1,75 @@
 # VibeDrop Agent Workflow
 
-## 开发流程：Spec → Plan → Exec
+**English** | [简体中文](AGENTS.zh-CN.md)
 
-每个功能或改进遵循三段式流程：
+## Development workflow: Spec → Plan → Exec
 
-### 1. Spec（需求说明）— `.claude/specs/XXX-name.md`
+Every feature or improvement follows a three-stage process:
 
-**What & Why**。产品视角，定义问题和目标，不写代码细节。
+### 1. Spec (requirements) — `.claude/specs/XXX-name.md`
 
-- 用户故事 (User Story)
-- 功能范围 (Scope)
-- 验收标准 (Acceptance Criteria)
-- 不做什么 (Out of Scope)
+**What & Why.** Product perspective: defines the problem and goals, without code details.
 
-### 2. Plan（实施方案）— `.claude/plans/XXX-name.md`
+- User story
+- Scope
+- Acceptance criteria
+- Out of scope
 
-**How**。技术视角，设计实现方案。
+### 2. Plan (implementation plan) — `.claude/plans/XXX-name.md`
 
-- 技术选型
-- 文件变更清单
-- 数据流 / 组件树
-- 风险点与备选方案
+**How.** Technical perspective: designs the implementation.
 
-### 3. Exec（执行记录）— `.claude/exec/YYYY-MM-DD-name.md`
+- Technical choices
+- List of file changes
+- Data flow / component tree
+- Risks and alternatives
 
-**Done**。记录实际完成的工作。
+### 3. Exec (execution record) — `.claude/exec/YYYY-MM-DD-name.md`
 
-- 创建/修改了哪些文件
-- 与 Plan 的偏差
-- 验证方式
+**Done.** Records the work actually completed.
 
----
-
-## 编号规则
-
-Spec 和 Plan 共享编号，按顺序递增：
-- `001` → `002` → `003` ...
-
-Exec 使用日期前缀：`2026-07-02-xxx.md`
+- Files created / modified
+- Deviations from the plan
+- How the change was verified
 
 ---
 
-## 当前文档索引
+## Numbering
+
+Specs and Plans share a number, incrementing sequentially:
+`001` → `002` → `003` ...
+
+Exec records use a date prefix: `2026-07-02-xxx.md`
+
+---
+
+## Current document index
 
 ### Active Specs
-（当前正在进行的 spec）
+(Specs currently in progress)
 
 ### Completed Specs
-- `001-build-worker` — Docker 构建 Worker
-- `002-user-profile` — 用户个人主页
-- `003-app-edit-delete` — App 编辑/删除
-- `004-ui-design-system` — UI 设计系统标准化
+- `001-build-worker` — Docker build worker
+- `002-user-profile` — User profiles
+- `003-app-edit-delete` — App edit / delete
+- `004-ui-design-system` — UI design system standardization
+- `005-comment-delete` — Comment deletion
+- `006-masonry-layout` — Masonry layout
+- `007-build-log-ui` — Build log viewer
+- `008-testing-infra` — Testing infrastructure
 
-### Next Up（待开始）
-- `005-comment-delete` — 评论删除
-- `006-masonry-layout` — 瀑布流布局
-- `007-build-log-ui` — 构建日志查看
-- `008-testing-infra` — 测试基础设施
+See `.claude/specs/_completed.md` for the full list (including Phase 2 and Phase 3 specs).
+
+### Next Up
+See `.scratch/` for open issues.
 
 ---
 
-## 关联文档
+## Related documents
 
-- `CONTEXT.md` — 领域模型术语表
-- `STATUS.md` — 项目状态总览
-- `docs/prd-mvp.md` — 完整 PRD
-- `docs/adr/` — 架构决策记录
-- `.scratch/` — Issue 跟踪
-- `.claude/optimization/audit.md` — 代码审计与优化路线图
+- `CONTEXT.md` — domain model glossary
+- `STATUS.md` — project status overview
+- `docs/prd-mvp.md` — full PRD
+- `docs/adr/` — architecture decision records
+- `.scratch/` — issue tracker
+- `.claude/optimization/audit.md` — code audit and optimization roadmap

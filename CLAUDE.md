@@ -12,7 +12,7 @@ VibeDrop 是一个面向 Vibe Coding 社区的 App 分享与试玩平台。
 
 | 文档 | 位置 | 用途 |
 |------|------|------|
-| 工作流指南 | `.claude/AGENTS.md` | Spec/Plan/Exec 流程说明 |
+| 工作流指南 | `.claude/AGENTS.md`（英文） / `.claude/AGENTS.zh-CN.md`（中文） | Spec/Plan/Exec 流程说明 |
 | 项目状态 | `STATUS.md` | 已完成/进行中/待办总览 |
 | 领域模型 | `CONTEXT.md` | 术语表 + 实体关系 |
 | 产品需求 | `docs/prd-mvp.md` | 完整 PRD (27 个 User Story) |

@@ -1,6 +1,8 @@
 # VibeDrop
 
-> 面向 Vibe Coding 社区的 App 分享与试玩平台。
+> An app sharing and play-testing platform for the Vibe Coding community.
+
+**English** | [简体中文](README.zh-CN.md)
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev/)
@@ -8,296 +10,310 @@
 [![Prisma](https://img.shields.io/badge/Prisma-6-2D3748)](https://www.prisma.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
 
-VibeDrop 让用 Cursor、v0、Bolt、Lovable 等 AI 工具做出来的 Web App 有一个「可玩」的展示空间：
-作者上传 ZIP 或连接 GitHub 仓库，平台自动构建并托管；访客可以在手机外壳中直接试玩、点赞、评论、Fork 和打赏。
+VibeDrop gives web apps built with Cursor, v0, Bolt, Lovable and other AI tools a place to be played:
+authors upload a ZIP or connect a GitHub repository, and the platform builds and hosts it.
+Visitors can play the app inside a phone shell, like, comment, fork and tip — without leaving the site.
 
-## 目录
+## Contents
 
-- [功能特性](#功能特性)
-- [界面预览](#界面预览)
-- [技术架构](#技术架构)
-- [技术栈](#技术栈)
-- [快速开始](#快速开始)
-- [环境变量](#环境变量)
-- [常用脚本](#常用脚本)
-- [目录结构](#目录结构)
-- [测试](#测试)
-- [部署](#部署)
-- [项目文档](#项目文档)
-- [参与贡献](#参与贡献)
-- [许可证](#许可证)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Scripts](#scripts)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 功能特性
+## Features
 
-### 发布与构建
+### Publishing & Builds
 
-| 能力 | 说明 |
-|------|------|
-| ZIP 上传 | 直接上传构建好的静态资源，自动解压并托管 |
-| GitHub 自动构建 | 关联公开仓库，Worker 自动克隆、安装依赖并构建 |
-| 多框架支持 | 自动识别并构建 React / Vue / Vite / Expo / Flutter Web 项目 |
-| 构建历史与回滚 | 保留每次构建记录、日志与产物，可一键回滚到历史版本 |
-| 浏览器内编辑器 | 基于 Monaco 的在线代码编辑器，可直接修改并重新部署 |
-| 多人协作 | App 作者可邀请协作者共同维护 |
+| Capability | Description |
+|------------|-------------|
+| ZIP upload | Upload prebuilt static assets; they are extracted and hosted automatically |
+| GitHub auto-build | Link a public repository; the worker clones, installs dependencies and builds it |
+| Multi-framework | Detects and builds React / Vue / Vite / Expo / Flutter Web projects |
+| Build history & rollback | Keeps every build record, log and artifact; roll back to a previous version in one click |
+| In-browser editor | Monaco-based editor for changing code and redeploying without leaving the browser |
+| Collaboration | App authors can invite collaborators to maintain an app together |
 
-### 社区与试玩
+### Community & Play
 
-| 能力 | 说明 |
-|------|------|
-| 社区大厅 | 搜索、标签筛选、混合排序（时间 + 热度） |
-| 手机外壳播放器 | iPhone / Android 外壳、横竖屏切换、全屏模式 |
-| 原生云模拟器 | 基于 redroid 的 Android 云模拟器（可选，需要 KVM） |
-| 互动 | 点赞、评论、举报、Fork、打赏（Stripe） |
-| 用户主页 | 展示作者信息与其发布的所有 App |
-| 分享卡片 | 三种模板的动态 OG Image，便于社交平台传播 |
+| Capability | Description |
+|------------|-------------|
+| Community hall | Search, tag filters and a mixed ranking (recency + popularity) |
+| Phone shell player | iPhone / Android shells, orientation switch and fullscreen mode |
+| Native cloud emulator | redroid-based Android emulator (optional, requires KVM) |
+| Interactions | Likes, comments, reports, forks and tips (Stripe) |
+| User profiles | Author details and every app they have published |
+| Share cards | Dynamic OG images in three templates for social sharing |
 
-### 认证与安全
+### Authentication & Security
 
-| 能力 | 说明 |
-|------|------|
-| 登录方式 | GitHub / Google OAuth；NextAuth Credentials（邮箱 / 密码） |
-| 账号能力 | 注册、邮箱验证、密码重置（Server Actions）；权限控制：作者 / 协作者 / 管理员 |
-| XSS 防护 | `sanitize-html` 在 Zod 校验层统一清洗 |
-| CSRF 防护 | Origin / Referer 校验 |
-| 限流 | 全局 20 req/min，认证接口 5 req/min |
-| 加密 | GitHub Token 使用 AES-256-GCM 加密存储 |
-| 安全响应头 | CSP、HSTS 等 6 项响应头 |
+| Capability | Description |
+|------------|-------------|
+| Sign-in | GitHub / Google OAuth; NextAuth Credentials (email / password) |
+| Accounts | Sign-up, email verification and password reset (Server Actions); author / collaborator / admin roles |
+| XSS protection | `sanitize-html` applied in the Zod validation layer |
+| CSRF protection | Origin / Referer validation |
+| Rate limiting | 20 req/min globally; 5 req/min on auth endpoints |
+| Encryption | GitHub tokens encrypted with AES-256-GCM |
+| Security headers | CSP, HSTS and four more security headers |
 
-## 界面预览
+## Screenshots
 
-> 截图来自本地开发实例（暗色主题为默认主题）。
+> Captured from a local development instance. Dark is the default theme.
 
-| 首页（桌面） | 登录页 | 首页（移动端） |
-|--------------|--------|----------------|
-| ![首页](docs/images/home.png) | ![登录页](docs/images/signin.png) | ![首页移动端](docs/images/home-mobile.png) |
+| Home (desktop) | Sign-in | Home (mobile) |
+|----------------|---------|---------------|
+| ![Home](docs/images/home.png) | ![Sign in](docs/images/signin.png) | ![Home mobile](docs/images/home-mobile.png) |
 
-## 技术架构
+## Architecture
 
 ```mermaid
 flowchart LR
-    U[浏览器] --> N[Next.js 15 App Router]
+    U[Browser] --> N[Next.js 15 App Router]
     N -->|Server Actions / API Routes| P[Prisma ORM]
     P --> DB[(PostgreSQL / Supabase)]
-    N -->|静态资源与封面| OSS[(阿里云 OSS)]
+    N -->|assets and cover images| OSS[(Alibaba Cloud OSS)]
     N -->|GitHub OAuth| GH[GitHub]
-    N -->|Stripe Webhook| ST[Stripe]
-    W["构建 Worker（Docker 容器）"] -->|轮询待构建任务| DB
-    W -->|git clone & npm build| T[构建工具链]
-    T -->|构建产物| OSS
-    W -->|写入构建日志| DB
-    N -->|iframe 播放| OSS
+    N -->|Stripe webhook| ST[Stripe]
+    W["Build Worker (Docker container)"] -->|polls pending builds| DB
+    W -->|git clone and npm build| T[Build toolchain]
+    T -->|build artifacts| OSS
+    W -->|writes build logs| DB
+    N -->|iframe playback| OSS
 ```
 
-- **Web 层**：Next.js 15 App Router + React Server Components，页面数据在服务端读取。
-- **数据层**：Prisma + PostgreSQL；Like / Comment 等计数在事务中原子更新。
-- **构建层**：独立 Worker 进程（运行于 Docker 容器）轮询数据库，在容器内执行 `git clone` 与项目构建，产物上传 OSS。
-- **存储层**：OSS 存放 ZIP、构建产物与封面图；数据库只保存元数据与 URL。
+- **Web layer**: Next.js 15 App Router with React Server Components; page data is read on the server.
+- **Data layer**: Prisma + PostgreSQL. Counters such as likes and comments are updated atomically in transactions.
+- **Build layer**: a standalone worker process (running in a Docker container) polls the database, runs `git clone` and the project build inside the container, and uploads artifacts to OSS.
+- **Storage layer**: OSS stores ZIPs, build artifacts and cover images; the database keeps metadata and URLs only.
 
-## 技术栈
+## Tech Stack
 
-| 层次 | 技术 |
-|------|------|
-| 前端 | Next.js 15（App Router / RSC）、React 19、TypeScript 5.7 |
-| 样式与组件 | Tailwind CSS v4、shadcn/ui、lucide-react |
-| 数据 | PostgreSQL、Prisma 6 |
-| 认证 | NextAuth.js v5（GitHub / Google OAuth + Credentials） |
-| 存储 | 阿里云 OSS |
-| 构建 | Node.js 构建 Worker、Docker、git / npm 工具链 |
-| 在线编辑 | Monaco Editor |
-| 支付 | Stripe |
-| 测试 | Vitest（集成）、Playwright（E2E） |
-| CI / 部署 | GitHub Actions、Docker Compose、nginx、Let's Encrypt |
+| Layer | Technology |
+|-------|------------|
+| Frontend | Next.js 15 (App Router / RSC), React 19, TypeScript 5.7 |
+| Styling & UI | Tailwind CSS v4, shadcn/ui, lucide-react |
+| Data | PostgreSQL, Prisma 6 |
+| Auth | NextAuth.js v5 (GitHub / Google OAuth + Credentials) |
+| Storage | Alibaba Cloud OSS |
+| Build | Node.js build worker, Docker, git / npm toolchain |
+| In-browser editing | Monaco Editor |
+| Payments | Stripe |
+| Testing | Vitest (integration), Playwright (E2E) |
+| CI / Deployment | GitHub Actions, Docker Compose, nginx, Let's Encrypt |
 
-## 快速开始
+## Getting Started
 
-### 前置要求
+### Prerequisites
 
 - Node.js 20+
-- PostgreSQL 14+（或 Supabase）
-- 可选：Docker（本地一键启动 / 构建 Worker）
+- PostgreSQL 14+ (or Supabase)
+- Optional: Docker (for the local stack and build worker)
 
-### 1. 安装依赖
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. 配置环境变量
+### 2. Configure environment variables
 
 ```bash
 cp .env.example .env.local
-# 编辑 .env.local，至少填入 DATABASE_URL、NEXTAUTH_SECRET、GitHub OAuth、OSS 配置
+# Edit .env.local and fill in at least DATABASE_URL, NEXTAUTH_SECRET,
+# GitHub OAuth and OSS settings.
 ```
 
-所有变量说明见下方[环境变量](#环境变量)。
+See [Environment Variables](#environment-variables) for every variable.
 
-### 3. 初始化数据库
+### 3. Initialize the database
 
 ```bash
 npx prisma generate
 npx prisma migrate dev --name init
 ```
 
-### 4. 启动开发服务器
+### 4. Start the development server
 
 ```bash
 npm run dev
 # http://localhost:3000
 ```
 
-### 使用 Docker 启动完整本地栈
+### Run the full local stack with Docker
 
 ```bash
-cp .env.example .env.local   # 填入云端数据库与 OSS 配置
+cp .env.example .env.local   # fill in the external database and OSS settings
 docker compose up --build    # app (3000) + build worker
 ```
 
-> 本地 compose 不包含 PostgreSQL，`DATABASE_URL` 指向外部数据库（Supabase 或自建实例）。
+> The local compose file does not include PostgreSQL. `DATABASE_URL` points to an
+> external database (Supabase or a self-hosted instance).
 
-## 环境变量
+## Environment Variables
 
-| 变量 | 必填 | 说明 |
-|------|:----:|------|
-| `DATABASE_URL` | ✅ | PostgreSQL 连接串 |
-| `NEXTAUTH_URL` | ✅ | 站点地址，如 `http://localhost:3000` |
-| `NEXTAUTH_SECRET` | ✅ | NextAuth 会话签名密钥（`openssl rand -hex 16`） |
+| Variable | Required | Description |
+|----------|:--------:|-------------|
+| `DATABASE_URL` | ✅ | PostgreSQL connection string |
+| `NEXTAUTH_URL` | ✅ | Site URL, e.g. `http://localhost:3000` |
+| `NEXTAUTH_SECRET` | ✅ | NextAuth session signing secret (`openssl rand -hex 16`) |
 | `GITHUB_CLIENT_ID` | ✅ | GitHub OAuth App Client ID |
 | `GITHUB_CLIENT_SECRET` | ✅ | GitHub OAuth App Client Secret |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | — | Google OAuth（启用 Google 登录时填写） |
-| `OSS_REGION` | ✅ | 阿里云 OSS 地域 |
-| `OSS_BUCKET` | ✅ | OSS Bucket 名称 |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | — | Google OAuth (required to enable Google sign-in) |
+| `OSS_REGION` | ✅ | Alibaba Cloud OSS region |
+| `OSS_BUCKET` | ✅ | OSS bucket name |
 | `OSS_ACCESS_KEY_ID` | ✅ | OSS AccessKey ID |
 | `OSS_ACCESS_KEY_SECRET` | ✅ | OSS AccessKey Secret |
-| `ENCRYPTION_KEY` | ✅ | GitHub Token 加密密钥，≥ 32 字符（`openssl rand -hex 32`） |
-| `ADMIN_GITHUB_IDS` | — | 管理员 GitHub 用户 ID，逗号分隔 |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `EMAIL_FROM` | — | 邮件服务，生产环境启用邮箱认证时必填 |
-| `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | — | 打赏功能所需 |
-| `EMULATOR_ENABLED` / `EMULATOR_DOCKER_HOST` / `EMULATOR_MAX_SESSIONS` / `EMULATOR_SESSION_TIMEOUT` | — | 原生云模拟器配置 |
+| `ENCRYPTION_KEY` | ✅ | GitHub token encryption key, ≥ 32 characters (`openssl rand -hex 32`) |
+| `ADMIN_GITHUB_IDS` | — | Comma-separated GitHub user IDs with admin access |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `EMAIL_FROM` | — | Mail service; required for email auth in production |
+| `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | — | Required for tips |
+| `EMULATOR_ENABLED` / `EMULATOR_DOCKER_HOST` / `EMULATOR_MAX_SESSIONS` / `EMULATOR_SESSION_TIMEOUT` | — | Native cloud emulator settings |
 
-完整的变量模板见 [`.env.example`](./.env.example) 与 [`.env.production.example`](./.env.production.example)。
+Full templates: [`.env.example`](./.env.example) and [`.env.production.example`](./.env.production.example).
 
-> ⚠️ 不要提交真实的 `.env*` 文件。`NEXTAUTH_SECRET`、`ENCRYPTION_KEY` 等请使用 `openssl rand` 在目标环境生成。
+> ⚠️ Never commit real `.env*` files. Generate `NEXTAUTH_SECRET`, `ENCRYPTION_KEY`
+> and other secrets with `openssl rand` in the target environment.
 
-## 常用脚本
+## Scripts
 
-| 命令 | 说明 |
-|------|------|
-| `npm run dev` | 启动开发服务器 |
-| `npm run build` | 生产构建 |
-| `npm run start` | 启动生产服务器 |
-| `npm run lint` | ESLint 检查 |
-| `npm run typecheck` | TypeScript 类型检查 |
-| `npm run db:generate` | `prisma migrate dev`，创建并应用迁移 |
-| `npm run db:migrate` | `prisma migrate deploy`，应用已有迁移 |
-| `npm run db:studio` | 打开 Prisma Studio |
-| `npm run build-worker` | 启动构建 Worker |
-| `npm test` | 运行 Vitest 集成测试 |
-| `npm run test:watch` | 监听模式运行测试 |
-| `npm run test:e2e` | 运行 Playwright E2E 测试 |
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start the development server |
+| `npm run build` | Production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run the TypeScript type checker |
+| `npm run db:generate` | `prisma migrate dev` — create and apply a migration |
+| `npm run db:migrate` | `prisma migrate deploy` — apply existing migrations |
+| `npm run db:studio` | Open Prisma Studio |
+| `npm run build-worker` | Start the build worker |
+| `npm test` | Run Vitest integration tests |
+| `npm run test:watch` | Run Vitest in watch mode |
+| `npm run test:e2e` | Run Playwright E2E tests |
 
-## 目录结构
+## Project Structure
 
 ```text
 VibeDrop/
 ├── src/
-│   ├── app/                     # Next.js App Router：页面 + API Routes
-│   │   ├── page.tsx             # 首页 / Landing
-│   │   ├── apps/                # 社区大厅、App 详情、手机外壳、编辑器、构建
-│   │   ├── publish/             # 发布流程（ZIP 上传 / GitHub 仓库）
-│   │   ├── auth/                # 登录、注册、邮箱验证、重置密码
-│   │   ├── users/               # 用户主页
-│   │   ├── admin/reports/       # 举报管理后台
-│   │   └── api/                 # 认证、App、构建、模拟器、OG Image、Webhook
-│   ├── components/              # 通用组件（Header、Footer、AppCard、UI 基础组件）
-│   ├── lib/                     # 业务逻辑与基础设施封装
-│   └── middleware.ts            # 全局限流、认证接口限流与路由保护
+│   ├── app/                     # Next.js App Router: pages + API routes
+│   │   ├── page.tsx             # Landing page
+│   │   ├── apps/                # Community hall, app detail, phone shell, editor, builds
+│   │   ├── publish/             # Publish flow (ZIP upload / GitHub repository)
+│   │   ├── auth/                # Sign-in, sign-up, email verification, password reset
+│   │   ├── users/               # User profiles
+│   │   ├── admin/reports/       # Report moderation dashboard
+│   │   └── api/                 # Auth, apps, builds, emulator, OG image, webhooks
+│   ├── components/              # Shared components (Header, Footer, AppCard, UI primitives)
+│   ├── lib/                     # Business logic and infrastructure wrappers
+│   └── middleware.ts            # Global and auth-endpoint rate limiting, route protection
 ├── prisma/
-│   └── schema.prisma            # 数据模型（User/App/Build/Like/Comment/Report/...）
+│   └── schema.prisma            # Data models (User/App/Build/Like/Comment/Report/...)
 ├── scripts/
-│   └── build-worker.ts          # 构建 Worker 入口：轮询任务、执行构建、上传产物
+│   └── build-worker.ts          # Build worker entry: poll jobs, run builds, upload artifacts
 ├── tests/
-│   ├── integration/             # Vitest 集成测试
-│   ├── e2e/                     # Playwright E2E 测试
-│   └── helpers/                 # 测试辅助工具
-├── cli/                         # SkillHub CLI / Agent 插件（辅助工具，非平台运行时）
-├── nginx/                       # 生产环境反向代理与证书初始化脚本
-├── docs/                        # PRD、ADR、部署指南、Agent 文档、截图
-├── .claude/                     # Spec / Plan / Exec 工作流记录
-├── .scratch/                    # 本地 Issue 跟踪
-├── docker-compose.yml           # 本地开发：app + worker
-├── docker-compose.prod.yml      # 生产：app + worker + nginx + certbot
-├── docker-compose.emulator.yml  # 可选：redroid 云模拟器
-├── Dockerfile                   # app-runner / worker-runner 多阶段构建
-└── .env.example                 # 环境变量模板（无真实密钥）
+│   ├── integration/             # Vitest integration tests
+│   ├── e2e/                     # Playwright E2E tests
+│   └── helpers/                 # Test helpers
+├── cli/                         # SkillHub CLI / agent plugin (tooling, not runtime)
+├── nginx/                       # Production reverse proxy and certificate bootstrap
+├── docs/                        # PRD, ADRs, deployment guide, agent docs, screenshots
+├── .claude/                     # Spec / Plan / Exec workflow records
+├── .scratch/                    # Local issue tracker
+├── docker-compose.yml           # Local development: app + worker
+├── docker-compose.prod.yml      # Production: app + worker + nginx + certbot
+├── docker-compose.emulator.yml  # Optional: redroid cloud emulator
+├── Dockerfile                   # Multi-stage app-runner / worker-runner build
+└── .env.example                 # Environment variable template (no real secrets)
 ```
 
-### 关键文件说明
+### Key Files
 
-| 文件 | 作用 |
-|------|------|
-| `src/lib/auth.ts` | NextAuth 配置、OAuth / 凭证登录、会话与 Cookie 安全设置 |
-| `src/lib/build-executor.ts` | 构建执行器：识别框架、执行构建命令、收集产物 |
-| `src/lib/encryption.ts` | AES-256-GCM 加解密（GitHub Token） |
-| `src/lib/env.ts` | 启动时环境变量校验，缺失即报错 |
-| `src/lib/permissions.ts` | 作者 / 协作者 / 管理员权限判断 |
-| `src/lib/sanitize.ts` | 富文本 XSS 清洗（Zod transform 层） |
-| `src/lib/csrf.ts` | Origin / Referer 校验 |
-| `src/lib/validations.ts` | 全链路 Zod Schema |
-| `src/lib/oss.ts` | 阿里云 OSS 上传与签名 |
-| `src/lib/emulator/` | redroid 容器生命周期管理与会话池 |
-| `src/lib/stripe.ts` | Stripe 客户端与打赏逻辑 |
-| `src/middleware.ts` | 限流（全局 + 认证接口） |
-| `prisma/schema.prisma` | 全部数据模型、枚举与索引 |
-| `scripts/build-worker.ts` | 独立构建 Worker 进程 |
-| `next.config.ts` | CSP / HSTS 等安全响应头 |
-| `.github/workflows/ci.yml` | CI：Lint / 类型检查、Vitest、生产构建 |
+| File | Purpose |
+|------|---------|
+| `src/lib/auth.ts` | NextAuth config, OAuth / credentials sign-in, session and cookie security |
+| `src/lib/build-executor.ts` | Build executor: framework detection, build commands, artifact collection |
+| `src/lib/encryption.ts` | AES-256-GCM encryption/decryption for GitHub tokens |
+| `src/lib/env.ts` | Environment variable validation at startup |
+| `src/lib/permissions.ts` | Author / collaborator / admin permission checks |
+| `src/lib/sanitize.ts` | Rich-text XSS sanitization (Zod transform layer) |
+| `src/lib/csrf.ts` | Origin / Referer validation |
+| `src/lib/validations.ts` | End-to-end Zod schemas |
+| `src/lib/oss.ts` | Alibaba Cloud OSS upload and signing |
+| `src/lib/emulator/` | redroid container lifecycle and session pool |
+| `src/lib/stripe.ts` | Stripe client and tipping logic |
+| `src/middleware.ts` | Rate limiting (global + auth endpoints) |
+| `prisma/schema.prisma` | All data models, enums and indexes |
+| `scripts/build-worker.ts` | Standalone build worker process |
+| `next.config.ts` | Security headers including CSP / HSTS |
+| `.github/workflows/ci.yml` | CI: lint / type check, Vitest, production build |
 
-## 测试
+## Testing
 
 ```bash
-npm test          # Vitest：Prisma、Server Actions、点赞竞态、XSS 清洗
-npm run test:e2e  # Playwright：页面导航与核心流程冒烟
+npm test          # Vitest: Prisma, Server Actions, like races, XSS sanitization
+npm run test:e2e  # Playwright: navigation and core-flow smoke tests
 npm run typecheck
 ```
 
-> 注意：当前 `devDependencies` 尚未声明 `vitest` 与 `@playwright/test`。首次运行前请安装：
+> Note: `vitest` and `@playwright/test` are not yet declared in `devDependencies`.
+> Install them before the first run:
 > `npm i -D vitest @playwright/test && npx playwright install`
 
-CI 在 GitHub Actions 中运行 Lint / 类型检查、Vitest 集成测试（带 PostgreSQL service）与生产构建
-（见 `.github/workflows/ci.yml`）。Playwright E2E 需在本地或独立环境中运行。
+CI runs lint / type checks, Vitest integration tests (with a PostgreSQL service)
+and a production build in GitHub Actions (see `.github/workflows/ci.yml`).
+Playwright E2E tests run locally or in a dedicated environment.
 
-## 部署
+## Deployment
 
-生产部署（阿里云 ECS + Docker Compose + nginx + Let's Encrypt）的完整步骤见
-[`docs/deployment.md`](./docs/deployment.md)，包括：
+Production deployment (Alibaba Cloud ECS + Docker Compose + nginx + Let's Encrypt)
+is documented in [`docs/deployment.md`](./docs/deployment.md), including:
 
-- 环境变量生成与安全清单
+- Secret generation and a pre-launch security checklist
 - `docker compose -f docker-compose.prod.yml up -d --build`
-- SSL 证书申请与续期
-- 备份、运维与已知限制
+- SSL certificate issuance and renewal
+- Backup, operations and known limitations
 
-## 项目文档
+## Documentation
 
-| 文档 | 说明 |
-|------|------|
-| [`STATUS.md`](./STATUS.md) | 项目状态：已完成功能与路线图 |
-| [`CONTEXT.md`](./CONTEXT.md) | 领域模型与术语表 |
-| [`docs/prd-mvp.md`](./docs/prd-mvp.md) | 产品需求文档（27 个 User Story） |
-| [`docs/deployment.md`](./docs/deployment.md) | 部署与运维指南 |
-| [`docs/adr/`](./docs/adr/) | 架构决策记录 |
-| [`.claude/AGENTS.md`](./.claude/AGENTS.md) | Spec → Plan → Exec 开发工作流 |
-| [`.scratch/`](./.scratch/) | 本地 Issue 跟踪 |
+All documentation is English by default. Chinese versions are available for the
+README, project status and deployment guide.
 
-## 参与贡献
+| Document | Description |
+|----------|-------------|
+| [`STATUS.md`](./STATUS.md) | Project status: completed features and roadmap |
+| [`CONTEXT.md`](./CONTEXT.md) | Domain model and glossary |
+| [`docs/prd-mvp.md`](./docs/prd-mvp.md) | Product requirements (27 user stories) |
+| [`docs/deployment.md`](./docs/deployment.md) | Deployment and operations guide |
+| [`docs/adr/`](./docs/adr/) | Architecture decision records |
+| [`.claude/AGENTS.md`](./.claude/AGENTS.md) | Spec → Plan → Exec development workflow |
+| [`.scratch/`](./.scratch/) | Local issue tracker |
 
-1. Fork 本仓库并创建功能分支：`git checkout -b feat/your-feature`
-2. 遵循 Spec → Plan → Exec 工作流（见 `.claude/AGENTS.md`）
-3. 提交前运行 `npm run lint`、`npm run typecheck`、`npm test`
-4. Commit message 使用英文，遵循 Conventional Commits（`feat:` / `fix:` / `docs:` …）
-5. 提交 Pull Request，并描述改动动机与验证方式
+Chinese versions: [`README.zh-CN.md`](./README.zh-CN.md),
+[`STATUS.zh-CN.md`](./STATUS.zh-CN.md),
+[`docs/deployment.zh-CN.md`](./docs/deployment.zh-CN.md).
 
-## 许可证
+## Contributing
 
-本项目采用 [MIT License](./LICENSE) 开源。
+1. Fork the repository and create a feature branch: `git checkout -b feat/your-feature`
+2. Follow the Spec → Plan → Exec workflow (see `.claude/AGENTS.md`)
+3. Before submitting, run `npm run lint`, `npm run typecheck` and `npm test`
+4. Write commit messages in English and follow Conventional Commits
+   (`feat:` / `fix:` / `docs:` …)
+5. Open a pull request describing the motivation and how you verified the change
+
+## License
+
+Released under the [MIT License](./LICENSE).
 
 Copyright (c) 2026 mrw7

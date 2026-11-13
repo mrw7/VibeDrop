@@ -1,115 +1,122 @@
-# VibeDrop 部署指南
+# VibeDrop Deployment Guide
 
-本地 Docker 测试 → 阿里云 ECS 生产部署。
+**English** | [简体中文](deployment.zh-CN.md)
+
+Local Docker testing → production deployment on Alibaba Cloud ECS.
 
 ---
 
-## 一、本地 Docker 测试
+## 1. Local Docker Testing
 
-本地栈使用 `docker-compose.yml`，包含 postgres + app(dev 热重载) + worker。
+The local stack uses `docker-compose.yml` and includes the app (dev hot reload)
+and the build worker. There is no database in the compose file: `DATABASE_URL`
+in `.env.local` points to an external PostgreSQL instance (Supabase or
+self-hosted).
 
-### 步骤
+### Steps
 
 ```bash
-# 1. 配置环境变量
+# 1. Configure environment variables
 cp .env.example .env.local
-# 编辑 .env.local，填入 GitHub OAuth、OSS 等（DATABASE_URL 已由 compose 覆盖到本地 db）
+# Edit .env.local: DATABASE_URL, GitHub OAuth, OSS, etc.
 
-# 2. 启动本地栈
+# 2. Start the local stack
 docker compose up --build
 
-# 3. 首次需要创建数据库 schema（另开终端）
+# 3. Create the database schema on first run (in another terminal)
 docker compose exec app npx prisma migrate dev --name init
-# 或（开发用）:
+# Or, for development:
 docker compose exec app npx prisma db push
 
-# 4. 验证
-curl http://localhost:3000          # 应返回首页
+# 4. Verify
+curl http://localhost:3000          # should return the landing page
 ```
-
-### 连接云端 Supabase（可选）
-
-如果想本地连云数据库而非本地 postgres，编辑 `.env.local` 的 `DATABASE_URL`，
-然后在 compose 里注释掉 `app`/`worker` 的 `DATABASE_URL` 覆盖和 `db` 服务的 `depends_on`。
 
 ---
 
-## 二、阿里云 ECS 生产部署
+## 2. Alibaba Cloud ECS Production Deployment
 
-生产栈使用 `docker-compose.prod.yml`，包含 app(standalone) + worker + nginx + certbot。
-**不含 postgres**——连接阿里云 Supabase/RDS。
+The production stack uses `docker-compose.prod.yml` and includes the app
+(standalone) + worker + nginx + certbot. **It does not include PostgreSQL** —
+it connects to Alibaba Cloud Supabase / RDS.
 
-### 2.1 ECS 准备
+### 2.1 Prepare the ECS instance
 
-1. **购买 ECS**：建议 4 核 8G+（worker 构建用户项目较吃资源）
-2. **安装 Docker**：
+1. **Purchase ECS**: 4 vCPU / 8 GB or more is recommended (the worker builds user projects).
+2. **Install Docker**:
    ```bash
    # Alibaba Cloud Linux 3
    dnf install -y docker
    systemctl enable --now docker
-   # docker compose v2 已内置于新版 Docker
+   # Docker Compose v2 is bundled with recent Docker versions
    ```
-3. **安全组开放端口**：80 (HTTP) + 443 (HTTPS)
-4. **DNS**：A 记录指向 ECS 公网 IP
+3. **Security group**: open ports 80 (HTTP) and 443 (HTTPS).
+4. **DNS**: point an A record at the ECS public IP.
 
-### 2.2 部署代码
+### 2.2 Deploy the code
 
 ```bash
-# 在 ECS 上
+# On the ECS instance
 git clone <repo> /opt/vibedrop
 cd /opt/vibedrop
 
-# 配置生产环境变量（在此生成所有密钥，勿从开发机拷贝）
+# Configure production env vars (generate all secrets here, never copy them
+# from a development machine)
 cp .env.production.example .env.production
 openssl rand -hex 16    # → NEXTAUTH_SECRET
 openssl rand -hex 32    # → ENCRYPTION_KEY
-vi .env.production       # 填入所有真实值 + DOMAIN=your.domain
+vi .env.production      # fill in real values + DOMAIN=your.domain
 ```
 
-### 2.3 构建并启动
+### 2.3 Build and start
 
 ```bash
-# 传入 DOMAIN（nginx 模板需要）
+# Pass DOMAIN (used by the nginx template)
 export DOMAIN=your.domain
 
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-首次启动后，app 容器的 entrypoint 会自动执行 `prisma migrate deploy` 应用迁移。
+On first start, the app container's entrypoint runs `prisma migrate deploy`
+automatically.
 
-### 2.4 申请 SSL 证书（Let's Encrypt）
+### 2.4 Obtain an SSL certificate (Let's Encrypt)
 
 ```bash
-# 确保 DNS 已生效
+# Make sure DNS has propagated
 DOMAIN=your.domain EMAIL=you@example.com ./nginx/init-letsencrypt.sh
 ```
 
-完成后 HTTPS 自动可用。证书由 certbot 容器每 12 小时检查续期。
+HTTPS is available once this completes. The certbot container checks for
+renewal every 12 hours.
 
-### 2.5 更新部署
+### 2.5 Update the deployment
 
 ```bash
 git pull
 docker compose -f docker-compose.prod.yml up -d --build
-# app entrypoint 会自动 migrate deploy
+# The app entrypoint runs migrate deploy automatically
 ```
 
 ---
 
-## 三、Worker 镜像：扩展构建能力
+## 3. Worker Image: Extending Build Capabilities
 
-worker 默认能构建：**Node.js / 静态 HTML**（含 `npm install` + `npm run build`）。
-要支持 **Expo / Flutter / 原生 Android**，需在 `Dockerfile` 的 `worker-runner` 阶段加装 SDK：
+The worker can build **Node.js / static HTML** projects out of the box
+(`npm install` + `npm run build`).
+To support **Expo / Flutter / native Android**, install the SDKs in the
+`worker-runner` stage of the `Dockerfile`:
 
 ```dockerfile
-# Flutter（~1.5GB）
+# Flutter (~1.5 GB)
 # RUN apk add --no-cache flutter
 
-# JDK（Android Gradle 构建）
+# JDK (Android Gradle builds)
 # RUN apk add --no-cache openjdk17
 ```
 
-加装后重建 worker：
+Then rebuild the worker:
+
 ```bash
 docker compose -f docker-compose.prod.yml build worker
 docker compose -f docker-compose.prod.yml up -d worker
@@ -117,35 +124,37 @@ docker compose -f docker-compose.prod.yml up -d worker
 
 ---
 
-## 四、备份与运维
+## 4. Backup & Operations
 
-| 任务 | 命令 |
-|------|------|
-| 查看日志 | `docker compose -f docker-compose.prod.yml logs -f app` |
-| 查看构建日志 | `docker compose -f docker-compose.prod.yml logs -f worker` |
-| 重启服务 | `docker compose -f docker-compose.prod.yml restart app` |
-| 进入容器 | `docker compose -f docker-compose.prod.yml exec app sh` |
-| 数据库状态 | `docker compose -f docker-compose.prod.yml exec app npx prisma migrate status` |
-| 手动续期证书 | `docker compose -f docker-compose.prod.yml run --rm certbot renew` |
+| Task | Command |
+|------|---------|
+| View logs | `docker compose -f docker-compose.prod.yml logs -f app` |
+| View build logs | `docker compose -f docker-compose.prod.yml logs -f worker` |
+| Restart services | `docker compose -f docker-compose.prod.yml restart app` |
+| Open a shell | `docker compose -f docker-compose.prod.yml exec app sh` |
+| Migration status | `docker compose -f docker-compose.prod.yml exec app npx prisma migrate status` |
+| Renew certificates manually | `docker compose -f docker-compose.prod.yml run --rm certbot renew` |
 
-**数据库备份**：由阿里云 Supabase/RDS 自动备份，无需本地操作。
-
----
-
-## 五、安全检查清单（上线前）
-
-- [ ] 所有密钥已重新生成（`NEXTAUTH_SECRET`、`ENCRYPTION_KEY`、OSS key、GitHub OAuth secret、DB 密码）
-- [ ] `.env.production` 已加入 `.gitignore`，未提交
-- [ ] `ENCRYPTION_KEY` 轮换已协调（会让已加密的 GitHub token 失效）
-- [ ] ECS 安全组仅开放 80/443
-- [ ] GitHub OAuth 回调 URL 已改为生产域名
-- [ ] Stripe webhook 端点已在 Dashboard 配置为 `https://YOUR_DOMAIN/api/webhooks/stripe`
-- [ ] `NEXTAUTH_URL` 与实际域名一致
+**Database backups** are handled automatically by Alibaba Cloud Supabase / RDS;
+no local action is required.
 
 ---
 
-## 六、已知限制
+## 5. Security Checklist (Before Launch)
 
-- **单 worker 副本**：轮询无原子锁，多 worker 副本会重复领取 Build。当前生产仅跑 1 个 worker 容器。
-- **PgBouncer**：若云 DB 走 PgBouncer，`DATABASE_URL` 需 `&connection_limit=1`，迁移用 directUrl。
-- **云模拟器 (#018)**：默认 `EMULATOR_ENABLED=false`。需 KVM 实例，单独部署。
+- [ ] All secrets regenerated (`NEXTAUTH_SECRET`, `ENCRYPTION_KEY`, OSS keys, GitHub OAuth secret, database password)
+- [ ] `.env.production` is covered by `.gitignore` and has not been committed
+- [ ] `ENCRYPTION_KEY` rotation is coordinated (rotating it invalidates encrypted GitHub tokens)
+- [ ] The ECS security group exposes only ports 80 / 443
+- [ ] The GitHub OAuth callback URL uses the production domain
+- [ ] The Google OAuth callback URL uses the production domain (if Google sign-in is enabled)
+- [ ] The Stripe webhook endpoint is configured in the Dashboard as `https://YOUR_DOMAIN/api/webhooks/stripe`
+- [ ] `NEXTAUTH_URL` matches the actual domain
+
+---
+
+## 6. Known Limitations
+
+- **Single worker replica**: polling has no atomic lock, so multiple worker replicas would claim the same build. Production currently runs one worker container.
+- **PgBouncer**: if the cloud database sits behind PgBouncer, `DATABASE_URL` needs `&connection_limit=1`, and migrations should use a `directUrl`.
+- **Cloud emulator (#018)**: `EMULATOR_ENABLED=false` by default. It requires a KVM-capable instance and is deployed separately.
