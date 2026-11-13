@@ -55,7 +55,7 @@ VibeDrop 是一个面向 Vibe Coding 社区的 App 分享与试玩平台。用�
 ### Architecture
 - **Frontend**: Next.js 15 with App Router, React Server Components for SEO and initial data fetching
 - **Styling**: TailwindCSS with shadcn/ui component library
-- **Database**: PostgreSQL via Alibaba Cloud Supabase (pgm-rj927449s0p5632g)
+- **Database**: PostgreSQL via Alibaba Cloud Supabase (see `.env.example` for connection config)
 - **ORM**: Prisma with connection pooling via Supabase
 - **File Storage**: Alibaba Cloud OSS for ZIP uploads, built artifacts, and cover images
 - **Authentication**: NextAuth.js with GitHub OAuth provider, requesting `repo` scope for private repo access

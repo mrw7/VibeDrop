@@ -35,3 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 Snipaste*.png
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
