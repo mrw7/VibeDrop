@@ -16,6 +16,7 @@
   <a href="https://www.prisma.io/"><img src="https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square" alt="Prisma 6" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" /></a>
   <a href="#contributing"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs welcome" /></a>
+  <a href="https://www.buymeacoffee.com/hawnleoni"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" /></a>
 </p>
 
 <p align="center">
@@ -24,6 +25,7 @@
   <a href="#architecture">Architecture</a> ·
   <a href="#quick-start">Quick Start</a> ·
   <a href="#documentation">Docs</a> ·
+  <a href="#support">Support</a> ·
   <a href="README.zh-CN.md">简体中文</a>
 </p>
 
@@ -309,6 +311,16 @@ Chinese versions: [`README.zh-CN.md`](README.zh-CN.md), [`STATUS.zh-CN.md`](STAT
 3. Before submitting, run `npm run lint`, `npm run typecheck` and `npm test`
 4. Write commit messages in English and follow Conventional Commits (`feat:` / `fix:` / `docs:` …)
 5. Open a pull request describing the motivation and how you verified the change
+
+## Support
+
+VibeDrop is free and open source. If it helps you, you can buy me a coffee — it keeps the community hall and the build worker running.
+
+<p align="center">
+  <a href="https://www.buymeacoffee.com/hawnleoni">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" />
+  </a>
+</p>
 
 ## License
 

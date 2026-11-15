@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { Coffee } from "lucide-react"
+import { BUY_ME_A_COFFEE_URL, GITHUB_REPO_URL } from "@/lib/site"
 import Logo from "./Logo"
 
 export default function Footer() {
@@ -42,12 +44,23 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com/mrw7/VibeDrop"
+                  href={GITHUB_REPO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-accent transition-colors"
                 >
                   GitHub 仓库
+                </a>
+              </li>
+              <li>
+                <a
+                  href={BUY_ME_A_COFFEE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm neon-text-yellow hover:opacity-80 transition-opacity"
+                >
+                  <Coffee size={14} aria-hidden="true" />
+                  Buy Me a Coffee
                 </a>
               </li>
               <li>

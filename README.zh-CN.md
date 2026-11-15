@@ -16,6 +16,7 @@
   <a href="https://www.prisma.io/"><img src="https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square" alt="Prisma 6" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" /></a>
   <a href="#参与贡献"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs welcome" /></a>
+  <a href="https://www.buymeacoffee.com/hawnleoni"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" /></a>
 </p>
 
 <p align="center">
@@ -24,6 +25,7 @@
   <a href="#技术架构">技术架构</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#项目文档">项目文档</a> ·
+  <a href="#支持项目">支持项目</a> ·
   <a href="README.md">English</a>
 </p>
 
@@ -307,6 +309,16 @@ Playwright E2E 需在本地或独立环境中运行。
 3. 提交前运行 `npm run lint`、`npm run typecheck`、`npm test`
 4. Commit message 使用英文，遵循 Conventional Commits（`feat:` / `fix:` / `docs:` …）
 5. 提交 Pull Request，并描述改动动机与验证方式
+
+## 支持项目
+
+VibeDrop 完全免费开源。如果它帮到了你，可以请我喝杯咖啡 ☕ —— 这能支撑社区大厅和构建 Worker 持续运行。
+
+<p align="center">
+  <a href="https://www.buymeacoffee.com/hawnleoni">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" />
+  </a>
+</p>
 
 ## 许可证
 
